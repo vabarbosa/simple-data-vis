@@ -1,0 +1,185 @@
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.theme_classic {
+	background-color: #ffffff;
+  box-sizing: border-box;
+  font: normal normal 400 1em/1.4 "HelvNeue", Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  max-height: 100vh;
+}
+
+.banner {
+  background-color: #5aaafa;
+  padding: 16px 40px;
+  padding: 1rem 2.5rem;
+  padding-left: 64px;
+  padding-left: 4rem;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+
+.theme_light {
+  background-color: #ececec;
+  color: #264a60;
+  max-width: 100%;
+  padding: 36px 40px;
+  padding: 2.25rem 2.5rem;
+}
+
+.bg_white {
+	background-color: #fff;
+}
+
+.bg_light-tint {
+	background-color: #f9f9fb;
+}
+
+.guide-example {
+  border: 1px solid #ececec;
+  margin: 5em;
+  padding: 2em 3em;
+}
+
+.type_heading {
+  font-size: 24px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  max-width: 576px;
+  max-width: 36rem;
+  display: block;
+  margin: 0;
+  margin: 36px 0 16px 0;
+  margin: 2.25rem 0 1rem 0;
+}
+
+.type_heading:first-child {
+  margin-top: 0;
+}
+
+.type_copy{
+	font-size: 14px;
+	font-size: .875rem;
+	font-weight: 300;
+	max-width: 576px;
+	max-width: 36rem;
+	line-height: 1.5;
+	margin: 8px 0;
+	margin: .5rem 0;
+	margin-bottom: 16px;
+	margin-bottom: 1rem;
+}
+
+.type_copy:last-child:not(:only-child){
+	margin-bottom: 0;
+}
+
+.type_link {
+	color: #008571;
+  cursor: pointer;
+	display: inline-block;
+	text-decoration: underline;
+	white-space: nowrap;
+}
+
+.type_link:hover {
+	color: #006d5d;
+}
+
+.type_link.disabled {
+  color: darkgrey;
+  cursor: initial;
+  font-weight: initial;
+  text-decoration: none;
+}
+
+.type_link.disabled:hover {
+  color: darkgrey;
+}
+
+.type_mark {
+  background: none;
+}
+
+.theme_light .type_mark {
+  color: #db2780;
+}
+
+.table_basic-container {
+  max-width: 100%;
+  overflow-x: scroll;
+}
+
+.table_basic {
+  border-collapse: collapse;
+  font-family: "HelvNeue",Helvetica,sans-serif;
+  width: 100%;
+}
+
+.table_basic thead {
+  color: green;
+  border-bottom: 4px solid;
+}
+
+.table_basic th {
+  font-size: 14px;
+  font-size: .875rem;
+  font-weight: 300;
+  text-align: left;
+  padding: 8px;
+  padding: .5rem;
+  white-space: nowrap;
+}
+
+.table_basic tbody tr:nth-child(even) {
+  background-color: #ececec;
+}
+
+.table_basic tbody td {
+  font-size: 14px;
+  font-size: .875rem;
+  font-weight: 300;
+  text-align: left;
+  padding: 12px 8px;
+  padding: .75rem .5rem;
+  white-space: nowrap;
+}
+
+.table_basic tbody td + td {
+  border-left: 1px solid #1d3649;
+}
+
+.input_text {
+    max-width: 21rem;
+}
+.input_narrow {
+    max-width: 10rem;
+}
+.input_wide {
+    max-width: 36rem;
+}
+.input_xwide {
+    max-width: 50rem;
+}

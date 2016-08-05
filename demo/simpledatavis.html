@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <title>simpledatavis.js</title>
+  
+  <link rel="stylesheet" type="text/css" href="classic.css">
+  
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <script type="text/javascript" src="../simpledatavis.js"></script>
+  <script type="text/javascript" src="../vis/simpledatavis-barchart.js"></script>
+  <script type="text/javascript" src="../vis/simpledatavis-bubblechart.js"></script>
+  <script type="text/javascript" src="../vis/simpledatavis-piechart.js"></script>
+  <script type="text/javascript" src="../vis/simpledatavis-groupedbarchart.js"></script>
+
+  <script type="text/javascript">
+    function onFail(err) {
+      this.text(err);
+    }
+
+    // callback for team languages
+    function teamLanguagesOnData(data) {
+      var languages = [];
+      (data.rows || data).forEach(function (d) {
+        d.languages.forEach(function(l) { if (l) languages.push({ key:l, value:1 }); });
+      });
+      
+      languages = d3.nest()
+        .key(function(d) { return d.key; })
+        .rollup(function(l) { return d3.sum(l, function(d) { return d.value; }); })
+        .entries(languages);
+
+      languages.forEach(function(d) { d.value = d.values; });
+      languages.sort(function(a, b) { return a.value < b.value });
+
+      return languages.slice(0,5);
+    }
+
+    // callback for team specialties
+    function teamSpecialitiesOnData(data) {
+      var specialties = [];
+      (data.rows || data).forEach(function (d) {
+        d.specialties.forEach(function(l) { specialties.push({ key:l, value:1 }); });
+      });
+      
+      specialties = d3.nest()
+        .key(function(d) { return d.key; })
+        .rollup(function(l) { return d3.sum(l, function(d) { return d.value; }); })
+        .entries(specialties);
+
+      specialties.forEach(function(d) { d.value = d.values; });
+      specialties.sort(function(a, b) { return a.value < b.value });
+
+      return specialties;
+    }
+
+    // callback for got culture
+    function gotCultureOnData(data) {
+      var culture = [];
+      for (var g in data.counts.culture) {
+        culture.push({ key: g, value: data.counts.culture[g] });
+      }
+      culture.sort(function(a, b) { return a.value > b.value });
+      return culture;
+    }
+
+    // callback for got books
+    function gotGenderByBooksOnData(data) {
+      var results = [];
+      var grouped = {};
+
+      (data.rows || data).forEach(function(row) {
+        var gender = row.gender || 'Unknown';
+        var books = row.books;
+
+        books.forEach(function(book) {
+          grouped[book] = grouped[book] ? grouped[book] : {};
+          grouped[book][gender] = (grouped[book][gender] || 0) + 1;
+        });
+      });
+
+      Object.keys(grouped).forEach(function(group) {
+        results.push({
+          key: group,
+          value: grouped[group]
+        });
+      });
+
+      return results;
+    }
+  </script>
+</head>
+
+<body>
+  <div class="theme_classic">
+    <div class="banner">
+      <a target="_blank"
+         href="https://developer.ibm.com/clouddataservices/simple-search-service/">
+         Simple Data Visualization // Dev</a>
+    </div>
+    <section class="theme_light">
+      <h1 class="type_heading">
+        <mark class="type_mark">Sample Data Visualizations</mark>
+      </h1>
+    </section>
+    <section class="theme_light bg_white">
+
+      <!-- dev advo languages -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">
+          Top 5 languages of the IBM CDS Developer Advocates</p>
+        <div class="teamlanguages"
+          data-vis="http://simple-search-service-digitate-thema.mybluemix.net/search?q=*:*"
+          data-vis-type="bar-chart"
+          data-vis-ondata="teamLanguagesOnData"
+          data-vis-onfail="onFail"></div>
+        <p class="type_copy">
+          <a href="http://ibm-cds-labs.github.io/team"
+            target="_blank" class="type_link">
+            http://ibm-cds-labs.github.io/team</a>
+        </p>
+      </figure>
+
+      <!-- dev advo specialties -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">
+          Specialties of the IBM CDS Developer Advocates</p>
+        <div class="teamspecialties"
+          data-vis="http://simple-search-service-digitate-thema.mybluemix.net/search?q=*:*"
+          data-vis-type="pie-chart"
+          data-vis-donut="true"
+          data-vis-ondata="teamSpecialitiesOnData"
+          data-vis-onfail="onFail"></div>
+        <p class="type_copy">
+          <a href="http://ibm-cds-labs.github.io/team"
+            target="_blank" class="type_link">
+            http://ibm-cds-labs.github.io/team</a>
+        </p>
+      </figure>
+
+      <!-- got culture totals -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">
+          Number of <i>Game of Thrones</i> characters in each culture</p>
+        <div class="gotculture"
+          data-vis="http://sss-got.mybluemix.net/search?q=*:*"
+          data-vis-type="bubble-chart"
+          data-vis-ondata="gotCultureOnData"
+          data-vis-onfail="onFail"></div>
+        <p class="type_copy">
+          <a href="http://sss-got-theme.mybluemix.net/"
+            target="_blank" class="type_link">
+            http://sss-got.mybluemix.net</a>
+        </p>
+      </figure>
+
+      <!-- got books -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">
+          <i>Game of Thrones</i> characters gender by books</p>
+        <div class="gotgenderbybooks"
+          data-vis="http://sss-got.mybluemix.net/search?q=*:*&limit=200"
+          data-vis-type="grouped-bar-chart"
+          data-vis-ondata="gotGenderByBooksOnData"
+          data-vis-onfail="onFail"></div>
+        <p class="type_copy">
+          <a href="http://sss-got-theme.mybluemix.net/"
+            target="_blank" class="type_link">
+            http://sss-got.mybluemix.net</a>
+        </p>
+      </figure>
+
+    </section>
+  </div>
+</body>
+</html>
