@@ -32,12 +32,15 @@
       // setup the container element
       var div = selection.selectAll('div.table-vis').data([data]);
       div.enter().append('div');
-      div.attr('width', width)
-        .style('max-height', '600px')
-        .style('overflow', 'scroll');
+      div.attr('width', width);
 
       // table
-      var table = div.selectAll('table').data([data]);
+      var tablecontainer = div.selectAll('.table-vis-table').data([data]);
+      tablecontainer.enter().append('div')
+        .attr('class', 'table-vis-table')
+        .style('max-height', '600px')
+        .style('overflow', 'scroll');
+      var table = tablecontainer.selectAll('table').data([data]);
       table.enter().append('table');
       table.attr('width', width)
         .attr('height', height)
@@ -46,16 +49,20 @@
       // thead
       var thead = table.selectAll('thead').data([cols]);
       thead.enter()
-        .append('thead');
+        .append('thead')
+        .style('border', '0 none');
 
       var theadr = thead.selectAll('tr').data([cols]);
       theadr.enter()
         .append('tr');
 
       var th = theadr.selectAll('th').data(cols);
-      th.enter()
-        .append('th');
-      th.text(function(d) { return d; });
+      th.enter().append('th')
+        .style('padding', '0 0 0 10px')
+        .append('div')
+        .style('max-height', '1px')
+        .style('visibility', 'hidden')
+        .text(function(d) { return d; });
       th.exit().remove();
 
       // tbody
@@ -91,6 +98,50 @@
       }
       
       cells.exit().remove();
+
+      // keep header fixed when table scrolls
+      var fixedheader = div.selectAll('.table-vis-fixed').data([cols]);
+      fixedheader.enter()
+        .insert('div', ':first-child')
+        .attr('class', 'table-vis-fixed')
+        .style('overflow', 'hidden')
+        .style('position', 'relative')
+        .style('color', 'rgb(31, 119, 180)')
+
+      fixedheader = fixedheader.selectAll('.table-vis-fixed-thead').data([cols]);
+      fixedheader.enter()
+        .append('div')
+        .attr('class', 'table-vis-fixed-thead')
+        .style('display', 'table')
+        .style('border-bottom', '2px solid')
+        .style('position', 'relative')
+        .style('width', table.node().getBoundingClientRect().width + 'px');
+
+      var fixedrow = fixedheader.selectAll('.table-vis-fixed-tr').data([cols]);
+      fixedrow.enter().append('div')
+        .attr('class', 'table-vis-fixed-tr')
+        .style('display', 'table-row')
+        .style('margin', '0')
+        .style('padding', '0');
+
+      var fixedcell = fixedrow.selectAll('.table-vis-fixed-th').data(cols);
+      fixedcell.enter()
+        .append('div')
+        .attr('class', 'table-vis-fixed-th')
+        .style('display', 'table-cell')
+        .style('margin', '0')
+        .style('padding-left', '10px')
+        .style('text-align', 'left')
+        .style('word-wrap', 'break-word')
+        .style('width', function(d, i) {
+          return (table.select('th:nth-child(' + (i+1) + ')').node().getBoundingClientRect().width - 10) + 'px';
+        })
+      fixedcell.text(function(d) { return d; });
+      fixedcell.exit().remove();
+
+      tablecontainer.on('scroll', function() {
+        fixedheader.style('left', (-tablecontainer.node().scrollLeft || '0') + 'px');
+      });
     }
   })
 }(SimpleDataVis));
