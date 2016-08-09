@@ -56,9 +56,9 @@
       theadr.enter()
         .append('tr');
 
-      var th = theadr.selectAll('th').data(cols);
+      var th = theadr.selectAll('th').data(cols, function(d, i) { return d + '-' + i;  });
       th.enter().append('th')
-        .style('padding', '0 0 0 10px')
+        .style('padding', '0')
         .append('div')
         .style('max-height', '1px')
         .style('visibility', 'hidden')
@@ -106,7 +106,7 @@
         .attr('class', 'table-vis-fixed')
         .style('overflow', 'hidden')
         .style('position', 'relative')
-        .style('color', 'rgb(31, 119, 180)');
+        .style('color', '#008571');
       fixedheader.exit().remove();
 
       fixedheader = fixedheader.selectAll('.table-vis-fixed-thead').data([cols]);
@@ -116,8 +116,8 @@
         .style('display', 'table')
         .style('border-bottom', '2px solid')
         .style('padding-left', '10px')
-        .style('position', 'relative')
-        .style('width', table.node().getBoundingClientRect().width + 'px');
+        .style('position', 'relative');
+      fixedheader.style('width', table.node().getBoundingClientRect().width + 'px');
       fixedheader.exit().remove();
 
       var fixedrow = fixedheader.selectAll('.table-vis-fixed-tr').data([cols]);
@@ -128,7 +128,7 @@
         .style('padding', '0');
       fixedrow.exit().remove();
 
-      var fixedcell = fixedrow.selectAll('.table-vis-fixed-th').data(cols);
+      var fixedcell = fixedrow.selectAll('.table-vis-fixed-th').data(cols, function(d, i) { return d + '-' + i;  });
       fixedcell.enter()
         .append('div')
         .attr('class', 'table-vis-fixed-th')
@@ -136,12 +136,13 @@
         .style('margin', '0')
         .style('text-align', 'left')
         .style('word-wrap', 'break-word');
-      fixedcell.exit().remove();
-      fixedcell.text(function(d) { return d; });
-      fixedcell.transition()
+      fixedcell
+        .text(function(d) { return d; })
+        .transition()
         .style('width', function(d, i) {
-          return table.select('th:nth-child(' + (i+1) + ')').node().getBoundingClientRect().width + 'px';
+          return thead.select('th:nth-child(' + (i+1) + ')').node().getBoundingClientRect().width + 'px';
         });
+      fixedcell.exit().remove();
 
       tablecontainer.on('scroll', function() {
         fixedheader.style('left', (-tablecontainer.node().scrollLeft || '0') + 'px');
