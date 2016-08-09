@@ -106,7 +106,8 @@
         .attr('class', 'table-vis-fixed')
         .style('overflow', 'hidden')
         .style('position', 'relative')
-        .style('color', 'rgb(31, 119, 180)')
+        .style('color', 'rgb(31, 119, 180)');
+      fixedheader.exit().remove();
 
       fixedheader = fixedheader.selectAll('.table-vis-fixed-thead').data([cols]);
       fixedheader.enter()
@@ -114,8 +115,10 @@
         .attr('class', 'table-vis-fixed-thead')
         .style('display', 'table')
         .style('border-bottom', '2px solid')
+        .style('padding-left', '10px')
         .style('position', 'relative')
         .style('width', table.node().getBoundingClientRect().width + 'px');
+      fixedheader.exit().remove();
 
       var fixedrow = fixedheader.selectAll('.table-vis-fixed-tr').data([cols]);
       fixedrow.enter().append('div')
@@ -123,6 +126,7 @@
         .style('display', 'table-row')
         .style('margin', '0')
         .style('padding', '0');
+      fixedrow.exit().remove();
 
       var fixedcell = fixedrow.selectAll('.table-vis-fixed-th').data(cols);
       fixedcell.enter()
@@ -130,14 +134,14 @@
         .attr('class', 'table-vis-fixed-th')
         .style('display', 'table-cell')
         .style('margin', '0')
-        .style('padding-left', '10px')
         .style('text-align', 'left')
-        .style('word-wrap', 'break-word')
-        .style('width', function(d, i) {
-          return (table.select('th:nth-child(' + (i+1) + ')').node().getBoundingClientRect().width - 10) + 'px';
-        })
-      fixedcell.text(function(d) { return d; });
+        .style('word-wrap', 'break-word');
       fixedcell.exit().remove();
+      fixedcell.text(function(d) { return d; });
+      fixedcell.transition()
+        .style('width', function(d, i) {
+          return table.select('th:nth-child(' + (i+1) + ')').node().getBoundingClientRect().width + 'px';
+        });
 
       tablecontainer.on('scroll', function() {
         fixedheader.style('left', (-tablecontainer.node().scrollLeft || '0') + 'px');
