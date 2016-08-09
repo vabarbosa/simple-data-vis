@@ -503,6 +503,7 @@ SimpleDataVis.init = function(selection, context) {
 };
 
 SimpleDataVis.tooltip = function() {
+  var format = d3.format(',d');
   var tooltipselection = null;
 
   var tooltip = function() {
@@ -558,7 +559,7 @@ SimpleDataVis.tooltip = function() {
         return text;
       }
       else {
-        var msg = (d.data && d.data.key ? d.data.key : d.key) + ': ' + d.value;
+        var msg = (d.data && d.data.key ? d.data.key : d.key) + ': ' + (typeof d.value === 'number'  ? format(d.value) : d.value);
         if (d.date) msg += ' , date: ' + d.date;
         if (d.geo) msg += ' , geo: ' + (d.geo.length && isArray(d.geo[0]) ? d.geo.length : d.geo);
         return msg;

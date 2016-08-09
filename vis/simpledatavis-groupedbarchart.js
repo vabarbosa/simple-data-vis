@@ -146,7 +146,15 @@
         .attr('x', function(d) { return groupScale(d.key); })
         .attr('y', function(d) { return d.value ? yScale(d.value) : height; })
         .attr('height', function(d) { return d.value ? height - yScale(d.value) : 0; })
-        .style('fill', function(d) { return color(d.key); });
+        .style('fill', function(d) { return color(d.key); })
+        .each('end', function(d) {
+          d3.select(this)
+            .on('mouseover', function(d, i) {
+              SimpleDataVis.tooltip.mouseover(d, i, opts);
+            })
+            .on('mousemove', SimpleDataVis.tooltip.mousemove)
+            .on('mouseout', SimpleDataVis.tooltip.mouseout);
+        });
       // remove old bars
       bars.exit().transition()
         .attr('opacity', 0)
