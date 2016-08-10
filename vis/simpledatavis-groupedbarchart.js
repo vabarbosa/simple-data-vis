@@ -106,7 +106,7 @@
         var nb = sData.length * groupKeys.length;
         var bw = nb <= 15 ? 55 : sData.length <= 21 ? 35 : 15;
 
-        var xScale = d3.scale.ordinal().rangeRoundBands([0, nb * bw], .25);
+        var xScale = d3.scale.ordinal().rangeRoundBands([0, Math.min(nb * bw, width)], .25);
         var groupScale = d3.scale.ordinal();
         var yScale = d3.scale.linear().range([height, 0]);
 
