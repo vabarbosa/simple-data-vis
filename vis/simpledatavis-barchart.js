@@ -13,7 +13,7 @@
         && data.length
         && data.length > 0
         && data[0].hasOwnProperty('key')
-        && !isNaN(data[0].value);
+        && !isNaN(parseInt(data[0].value, 10));
     },
 
     render: function(selection, barchartdata, options, callbacks) {

@@ -15,7 +15,7 @@
         && data.length <= 50
         && data[0].hasOwnProperty('key')
         && data[0].hasOwnProperty('value')
-        && !isNaN(data[0].value);
+        && !isNaN(parseInt(data[0].value, 10));
     },
 
     render: function(selection, bubblechartdata, options, callbacks) {
