@@ -13,6 +13,7 @@
         && data.length
         && data.length > 0
         && data[0].hasOwnProperty('key')
+        && data[0].value != null
         && typeof data[0].value === 'object';
     },
 
