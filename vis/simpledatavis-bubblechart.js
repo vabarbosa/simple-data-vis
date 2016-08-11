@@ -8,10 +8,11 @@
 
     canRender: function(bubblechartdata) {
       var data = bubblechartdata ? (bubblechartdata.data || bubblechartdata) : [];
-      // an array of less than 45 objects with key/value (or more accurately the first object has key/value)
+      // an array of 1 - 50 objects with key/value
       return Object.prototype.toString.call(data) === '[object Array]'
         && data.length
-        && data.length <= 45
+        && data.length > 0
+        && data.length <= 50
         && data[0].hasOwnProperty('key')
         && data[0].hasOwnProperty('value')
         && !isNaN(data[0].value);

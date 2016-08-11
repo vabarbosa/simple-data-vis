@@ -11,6 +11,7 @@
       // an array of objects with key/value/date (or more accurately the first object has key/value/date)
       return Object.prototype.toString.call(data) === '[object Array]'
         && data.length
+        && data.length > 0
         && data[0].hasOwnProperty('key')
         && data[0].hasOwnProperty('value')
         && data[0].hasOwnProperty('date')
@@ -32,6 +33,8 @@
           }
         });
       }
+      // sort by the date
+      data.sort(function(a,b) { return a.date > b.date; });
 
       var margin = {top: 20, right: 150, bottom: 30, left: 75};
       var box = selection.node().getBoundingClientRect();

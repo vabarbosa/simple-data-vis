@@ -8,12 +8,11 @@
 
     canRender: function(groupedbarchartdata) {
       var data = groupedbarchartdata ? (groupedbarchartdata.data || groupedbarchartdata) : [];
-      // an array of less than 30 objects with key/value and value is an object
+      // an array with key/value and value is an object
       return Object.prototype.toString.call(data) === '[object Array]'
         && data.length
-        && data.length <= 30
+        && data.length > 0
         && data[0].hasOwnProperty('key')
-        && data[0].hasOwnProperty('value')
         && typeof data[0].value === 'object';
     },
 
@@ -51,14 +50,14 @@
 
       // separate data into multiple series to be charted
       var series = [];
-      var featuredGroups = [];
-      var featured = (typeof opts.featured === 'string') ? [opts.featured] : (opts.featured || []);
+      var standoutGroups = [];
+      var standout = (typeof opts.standout === 'string') ? [opts.standout] : (opts.standout || []);
       var maxGroups = opts.maxgroups && !isNaN(parseInt(opts.maxgroups,10)) ? Number(opts.maxgroups) : data.length;
       if (maxGroups) {
         var row = [];
         for (var i = 0; i < data.length; i++) {
-          if (featured.indexOf(data[i].key) != -1) {
-            featuredGroups.push(data[i]);
+          if (standout.indexOf(data[i].key) != -1) {
+            standoutGroups.push(data[i]);
           }
           else {
             row.push(data[i]);
@@ -72,8 +71,8 @@
           series.push(row);
         }
       }
-      if (featuredGroups.length > 0) {
-        series.unshift(featuredGroups);
+      if (standoutGroups.length > 0) {
+        series.unshift(standoutGroups);
       }
 
       data = series;

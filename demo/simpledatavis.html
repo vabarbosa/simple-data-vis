@@ -82,12 +82,15 @@
       });
 
       Object.keys(grouped).forEach(function(group) {
-        results.push({
-          key: group,
-          value: grouped[group]
-        });
+        if (group) {
+          results.push({
+            key: group,
+            value: grouped[group]
+          });
+        }
       });
 
+      results.sort(function(a,b) { return a.key.toLowerCase() > b.key.toLowerCase(); });
       return results;
     }
   </script>

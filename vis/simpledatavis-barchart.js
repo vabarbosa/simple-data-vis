@@ -8,12 +8,11 @@
 
     canRender: function(barchartdata) {
       var data = barchartdata ? (barchartdata.data || barchartdata) : [];
-      // an array of less than 30 objects with key/value (or more accurately the first object has key/value)
+      // an array of objects with key/value
       return Object.prototype.toString.call(data) === '[object Array]'
         && data.length
-        && data.length <= 30
+        && data.length > 0
         && data[0].hasOwnProperty('key')
-        && data[0].hasOwnProperty('value')
         && !isNaN(data[0].value);
     },
 

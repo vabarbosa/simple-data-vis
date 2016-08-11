@@ -8,10 +8,11 @@
 
     canRender: function(donutchartdata) {
       var data = donutchartdata ? (donutchartdata.data || donutchartdata) : [];
-      // an array of less than 15 objects with key/value (or more accurately the first object has key/value)
+      // an array of 1 - 20 objects with key/value
       return Object.prototype.toString.call(data) === '[object Array]'
         && data.length
-        && data.length <= 15
+        && data.length > 0
+        && data.length <= 20
         && data[0].hasOwnProperty('key')
         && data[0].hasOwnProperty('value')
         && !isNaN(data[0].value);
