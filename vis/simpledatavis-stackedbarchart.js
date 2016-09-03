@@ -33,13 +33,16 @@
       }
       else {
         data.forEach(function(d) {
-          d.value = {};
+          var value = {};
           for (var key in d) {
-            if (key !== 'key' && groupKeys.indexOf(key) == -1) {
-              groupKeys.push(key);
-              d.value[key] = d[key];
+            if (key !== 'key') {
+              value[key] = d[key];
+              if (groupKeys.indexOf(key) == -1) {
+                groupKeys.push(key);
+              }
             }
           }
+          d.value = value;
         });
       }
 
@@ -111,11 +114,15 @@
         .duration(300)
         .delay(function(d, i) { return i * 10; })
         .attr("x", function(d) { return xScale(d.x); })
-        .attr("y", height)
         .attr("width", xScale.rangeBand())
-        .delay(function(d, i) { return i * 10; })
-        .attr("y", function(d) { return y(d.y0 + d.y); })
-        .attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })
+        .attr("y", function(d) {
+          var a = y(d.y0 + d.y);
+          return a;
+        })
+        .attr("height", function(d) {
+          var a = y(d.y0) - y(d.y0 + d.y);
+          return a;
+        })
       rect.exit().remove();
 
       // the x axis
@@ -173,7 +180,7 @@
         .remove();
 
       // legend label
-      var legendlabel = svg.selectAll('text.legend').data(groupKeys);
+      var legendlabel = svg.selectAll('text.legend').data(groupKeys.reverse());
 
       // add new labels
       legendlabel.enter().append('text')
