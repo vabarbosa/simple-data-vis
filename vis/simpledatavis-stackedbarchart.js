@@ -33,9 +33,11 @@
       }
       else {
         data.forEach(function(d) {
+          d.value = {};
           for (var key in d) {
             if (key !== 'key' && groupKeys.indexOf(key) == -1) {
               groupKeys.push(key);
+              d.value[key] = d[key];
             }
           }
         });
