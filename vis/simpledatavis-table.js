@@ -22,9 +22,11 @@
       }
 
       var box = selection.node().getBoundingClientRect();
-      var width = Math.max(800, box.width);
-      var height = Math.max(500, box.height);
+      // var width = Math.max(800, box.width);
+      // var height = Math.max(500, box.height);
       var margin = {top: 25, right: 25, bottom: 25, left: 25};
+      var width = (box.width || 800) - margin.left - margin.right;
+      var height = (box.height || 500) - margin.top - margin.bottom;
 
       var color = d3.scale.category10();
       var line = d3.svg.line();
@@ -38,12 +40,13 @@
       var tablecontainer = div.selectAll('.table-vis-table').data([data]);
       tablecontainer.enter().append('div')
         .attr('class', 'table-vis-table')
-        .style('max-height', '600px')
+        // .style('max-height', '600px')
+        .style('max-height', height+'px')
         .style('overflow', 'scroll');
       var table = tablecontainer.selectAll('table').data([data]);
       table.enter().append('table');
       table.attr('width', width)
-        .attr('height', height)
+        // .attr('height', height)
         .attr('class', 'table table_basic');
 
       // thead

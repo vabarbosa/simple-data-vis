@@ -23,10 +23,12 @@
 
       var data = bubblechartdata ? (bubblechartdata.data || bubblechartdata) : [];
 
-      var diameter = 800;
+      // var diameter = 800;
       var box = selection.node().getBoundingClientRect();
-      var width = Math.max(diameter, box.width);
-      var height = diameter;
+      var width = (box.width || 600);
+      var height = (box.height || 600);
+      // var width = Math.max(diameter, box.width);
+      // var height = diameter;
 
       var color = d3.scale.category20();
       var bubble = d3.layout.pack()

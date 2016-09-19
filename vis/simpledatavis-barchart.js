@@ -22,11 +22,13 @@
       var yScale = d3.scale.linear();
 
       var data = barchartdata ? (barchartdata.data || barchartdata) : [];
-      var hpb = data.length <= 10 ? 35 : data.length <= 20 ? 25 : 15;
+      // var hpb = data.length <= 10 ? 35 : data.length <= 20 ? 25 : 15;
 
       var box = selection.node().getBoundingClientRect();
-      var width = Math.max(400, box.width);
-      var height = Math.max(400, (hpb * data.length));
+      var width = (box.width || 600);
+      var height = (box.height || 600);
+      // var width = Math.max(400, box.width);
+      // var height = Math.max(400, (hpb * data.length));
       var margin = { left: 100, right: 75 };
 
       var color = d3.scale.category10();

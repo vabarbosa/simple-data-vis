@@ -81,8 +81,10 @@
       var color = d3.scale.category10();
       var margin = {top: 20, right: 150, bottom: 120, left: 80};
       var box = selection.node().getBoundingClientRect();
-      var width = Math.max(400, box.width) - margin.left - margin.right;
-      var height = (data.length > 1 ? 450 : 600) - margin.top - margin.bottom;
+      var width = (box.width || 600) - margin.left - margin.right;
+      var height = (box.height || 600) - margin.top - margin.bottom;
+      // var width = Math.max(400, box.width) - margin.left - margin.right;
+      // var height = (data.length > 1 ? 450 : 600) - margin.top - margin.bottom;
 
       // setup the svg element
       var svg = selection.selectAll('svg').data([data]);
