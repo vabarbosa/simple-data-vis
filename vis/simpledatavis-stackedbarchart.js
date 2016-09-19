@@ -133,10 +133,10 @@
       xaxis.transition()
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
-        .selectAll("text").style("text-anchor", "end")
-          .attr("dx", "-.8em")
+        .selectAll("text").style("text-anchor", "start")
+          .attr("dx", ".8em")
           .attr("dy", ".15em")
-          .attr("transform", function(d) { return "rotate(-45)" });
+          .attr("transform", function(d) { return "rotate(45)" });
       xaxis.exit().remove();
 
       // the y axis
