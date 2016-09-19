@@ -32,8 +32,8 @@
       });
 
       var box = selection.node().getBoundingClientRect();
-      var width = Math.max(800, box.width);
-      var height = Math.max(500, (20 * data.length));
+      var width = Math.max(400, box.width);
+      var height = Math.max(400, (20 * data.length));
       var outerRadius = Math.min(height, width) / 2 - 20;
       var innerRadius = opts.donut ? outerRadius / 3 : 1;
       var cornerRadius = 10;
