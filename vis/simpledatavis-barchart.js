@@ -25,7 +25,7 @@
       var hpb = data.length <= 10 ? 35 : data.length <= 20 ? 25 : 15;
 
       var box = selection.node().getBoundingClientRect();
-      var width = Math.max(800, box.width);
+      var width = Math.max(400, box.width);
       var height = Math.max(400, (hpb * data.length));
       var margin = { left: 100, right: 75 };
 
