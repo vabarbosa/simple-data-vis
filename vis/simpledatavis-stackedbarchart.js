@@ -55,7 +55,7 @@
       var layers = d3.layout.stack()(groupKeys.map(function(key) {
         return data.map(function(d, i) {
           return {
-            x: d.key, y: d.value[key] ? +d.value[key] : 0
+            x: d.key, y: d.value[key] ? +d.value[key] : 0, l:key
           };
         });
       }));
@@ -123,6 +123,14 @@
           var a = y(d.y0) - y(d.y0 + d.y);
           return a;
         })
+        .each('end', function(d) {
+          d3.select(this)
+            .on('mouseover', function(d, i) {
+              SimpleDataVis.tooltip.mouseover({key:d.l, value:d.y}, i, opts);
+            })
+            .on('mousemove', SimpleDataVis.tooltip.mousemove)
+            .on('mouseout', SimpleDataVis.tooltip.mouseout);
+        });
       rect.exit().remove();
 
       // the x axis
