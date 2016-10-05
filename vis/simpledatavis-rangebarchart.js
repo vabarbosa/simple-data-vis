@@ -25,17 +25,17 @@
       var data = barchartdata ? (barchartdata.data || barchartdata) : []
       data.forEach(function (d) {
         if (typeof d.max !== 'number') {
-          d.max = typeof d.value.max === 'number' ? d.value.max : 0
+          d.max = d.value && typeof d.value.max === 'number' ? d.value.max : 0
         }
         if (typeof d.min !== 'number') {
-          d.min = typeof d.value.min === 'number' ? d.value.min : d.max
+          d.min = d.value && typeof d.value.min === 'number' ? d.value.min : d.max
         }
         if (typeof d.avg !== 'number') {
           d.avg = (typeof d.sum === 'number' && typeof d.count === 'number')
             ? d.sum / d.count
-            : typeof d.value.avg === 'number'
+            : d.value && typeof d.value.avg === 'number'
               ? d.value.avg
-              : (typeof d.value.sum === 'number' && typeof d.value.count === 'number')
+              : (d.value && typeof d.value.sum === 'number' && typeof d.value.count === 'number')
                 ? d.value.sum / d.value.count
                 : (d.max + d.min) / 2
         }
