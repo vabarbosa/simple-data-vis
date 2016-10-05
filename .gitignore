@@ -8,3 +8,4 @@ demo/topojson.v1.min.js
 demo/index.html
 scripts
 lib
+node_modules
