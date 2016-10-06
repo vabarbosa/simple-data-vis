@@ -19,6 +19,9 @@
     },
 
     render: function (selection, barchartdata, options, callbacks) {
+      var tooltipText = function (d) {
+        return d.key + ': Min (' + d.min + '), Avg (' + d.avg + '), Max (' + d.max + ')'
+      }
       var xScale = d3.scale.linear()
       var yScale = d3.scale.linear()
 
@@ -43,8 +46,10 @@
 
       var box = selection.node().getBoundingClientRect()
       var width = (box.width || 600)
-      var height = (box.height || 600)
+      var h = (box.height || 600)
       var margin = { left: 100, right: 75, bottom: 25 }
+
+      var height = Math.min(h, data.length * 85)
 
       var color = d3.scale.category10()
 
@@ -94,8 +99,7 @@
         .attr('class', 'bar')
         .attr('opacity', 0)
         .on('mouseover', function (d, i) {
-          SimpleDataVis.tooltip.mouseover(d, i, options,
-            d.key + ': Min (' + d.min + '), Max (' + d.max + '), Avg (' + d.avg + ')')
+          SimpleDataVis.tooltip.mouseover(d, i, options, tooltipText(d))
         })
         .on('mousemove', SimpleDataVis.tooltip.mousemove)
         .on('mouseout', SimpleDataVis.tooltip.mouseout)
@@ -128,8 +132,7 @@
         .attr('dy', '0.35em')
         .attr('text-anchor', 'end')
         .on('mouseover', function (d, i) {
-          SimpleDataVis.tooltip.mouseover(d, i, options,
-            d.key + ': Min (' + d.min + '), Max (' + d.max + '), Avg (' + d.avg + ')')
+          SimpleDataVis.tooltip.mouseover(d, i, options, tooltipText(d))
         })
         .on('mousemove', SimpleDataVis.tooltip.mousemove)
         .on('mouseout', SimpleDataVis.tooltip.mouseout)
@@ -163,8 +166,7 @@
         .attr('class', 'avgvalue')
         .attr('opacity', 0)
         .on('mouseover', function (d, i) {
-          SimpleDataVis.tooltip.mouseover(d, i, options,
-            d.key + ': Min (' + d.min + '), Max (' + d.max + '), Avg (' + d.avg + ')')
+          SimpleDataVis.tooltip.mouseover(d, i, options, tooltipText(d))
         })
         .on('mousemove', SimpleDataVis.tooltip.mousemove)
         .on('mouseout', SimpleDataVis.tooltip.mouseout)

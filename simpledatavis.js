@@ -503,7 +503,7 @@ SimpleDataVis.init = function(selection, context) {
 };
 
 SimpleDataVis.tooltip = function() {
-  var format = d3.format(',d');
+  var format = d3.format(',');
   var tooltipselection = null;
 
   var tooltip = function() {
