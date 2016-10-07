@@ -51,7 +51,9 @@
 
       var height = Math.min(h, data.length * 85)
 
-      var color = d3.scale.category10()
+      var cdom = data.map(function (d) { return d.key })
+      cdom.sort(function (a, b) { return a > b })
+      var color = d3.scale.category10().domain(cdom)
 
       // set the ranges
       xScale.range([margin.left, width - margin.left - margin.right])
