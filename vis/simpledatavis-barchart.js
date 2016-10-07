@@ -63,7 +63,7 @@
         })
         .attr('width', function (d) { return xScale(d.value) })
         .attr('opacity', 1)
-        .style('fill', function (d, i) { return color(i) })
+        .style('fill', function (d, i) { return color(d.key) })
 
       // remove old bars
       bars.exit().transition()
