@@ -33,7 +33,8 @@
         })
 
         data.forEach(function (d) {
-          d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d.value[entry]} })
+          var dd = d
+          d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d.value[entry], data: dd} })
         })
       } else {
         data.forEach(function (d) {
@@ -45,7 +46,8 @@
         })
 
         data.forEach(function (d) {
-          d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d[entry]} })
+          var dd = d
+          d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d[entry], data: dd} })
         })
       }
 
