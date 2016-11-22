@@ -116,6 +116,16 @@
         .attr('width', function (d) { return xScale(d.max) - xScale(d.min) })
         .attr('opacity', 1)
         .style('fill', function (d, i) { return color(d.key) })
+        .each('end', function (d, i) {
+          if (options.click) {
+            d3.select(this)
+              .style('cursor', 'pointer')
+              .on('click', function (d, i) {
+                d3.event.stopPropagation()
+                options.click(d, i)
+              })
+          }
+        })
 
       // remove old bars
       bars.exit().transition()
@@ -183,6 +193,16 @@
         .attr('width', '4px')
         .attr('dx', '-2px')
         .attr('opacity', 1)
+        .each('end', function (d, i) {
+          if (options.click) {
+            d3.select(this)
+              .style('cursor', 'pointer')
+              .on('click', function (d, i) {
+                d3.event.stopPropagation()
+                options.click(d, i)
+              })
+          }
+        })
 
       // remove old avg marker
       avgMarker.exit().transition()

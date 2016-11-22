@@ -131,6 +131,15 @@
             })
             .on('mousemove', SimpleDataVis.tooltip.mousemove)
             .on('mouseout', SimpleDataVis.tooltip.mouseout)
+
+          if (options.click) {
+            d3.select(this)
+              .style('cursor', 'pointer')
+              .on('click', function (d, i) {
+                d3.event.stopPropagation()
+                options.click({key: d.l, value: d.y, data: data[index]}, i)
+              })
+          }
         })
       rect.exit().remove()
 

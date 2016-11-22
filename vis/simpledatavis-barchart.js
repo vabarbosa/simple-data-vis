@@ -66,6 +66,23 @@
         .attr('width', function (d) { return xScale(d.value) })
         .attr('opacity', 1)
         .style('fill', function (d, i) { return color(d.key) })
+        .each('end', function (d, i) {
+          d3.select(this)
+            .on('mouseover', function (d, i) {
+              SimpleDataVis.tooltip.mouseover(d, i, options)
+            })
+            .on('mousemove', SimpleDataVis.tooltip.mousemove)
+            .on('mouseout', SimpleDataVis.tooltip.mouseout)
+
+          if (options.click) {
+            d3.select(this)
+              .style('cursor', 'pointer')
+              .on('click', function (d, i) {
+                d3.event.stopPropagation()
+                options.click(d, i)
+              })
+          }
+        })
 
       // remove old bars
       bars.exit().transition()

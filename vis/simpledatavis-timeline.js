@@ -128,6 +128,15 @@
             SimpleDataVis.tooltip.mouseout(d, i);
           });
 
+          if (options.click) {
+            circles.select(this)
+              .style('cursor', 'pointer')
+              .on('click', function (d, i) {
+                d3.event.stopPropagation()
+                options.click(d, i)
+              })
+          }
+
         // remove old points
         circles.exit().remove();
       }

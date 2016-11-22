@@ -91,7 +91,7 @@
         });
 
       // add circles
-      g.append('circle')
+      var circles = g.append('circle')
         .attr('r', function(d) { return d.r; })
         .style('fill', function(d, i) { return color(d.value); })
         .on('mouseover', function(d, i) {
@@ -104,7 +104,16 @@
           d3.select(this).transition()
             .attr('opacity', 1);
           SimpleDataVis.tooltip.mouseout(d, i, options);
-        });
+        })
+
+      if (options.click) {
+        circles
+          .style('cursor', 'pointer')
+          .on('click', function (d, i) {
+            d3.event.stopPropagation()
+            options.click(d, i)
+          })
+      }
 
       // add text
       g.append('text')

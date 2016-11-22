@@ -149,6 +149,16 @@
           })
           .attr('r', function(d) { return radius(d.value); })
           .attr('opacity', 0.75)
+          .each('end', function (d, i) {
+            if (options.click) {
+              d3.select(this)
+                .style('cursor', 'pointer')
+                .on('click', function (d, i) {
+                  d3.event.stopPropagation()
+                  options.click(d, i)
+                })
+            }
+          })
 
         // remove old points
         points.exit().transition()

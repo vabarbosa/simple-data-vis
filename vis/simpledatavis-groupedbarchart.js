@@ -194,6 +194,15 @@
               })
               .on('mousemove', SimpleDataVis.tooltip.mousemove)
               .on('mouseout', SimpleDataVis.tooltip.mouseout)
+
+            if (options.click) {
+              d3.select(this)
+                .style('cursor', 'pointer')
+                .on('click', function (d, i) {
+                  d3.event.stopPropagation()
+                  options.click(d.data, i)
+                })
+            }
           })
         // remove old bars
         bars.exit().transition()

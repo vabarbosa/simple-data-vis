@@ -106,6 +106,15 @@
               SimpleDataVis.tooltip.mouseout(d, i)
               arcExplode.call(this, outerRadius - 20, 150)
             })
+
+          if (options.click) {
+            d3.select(this)
+              .style('cursor', 'pointer')
+              .on('click', function (d, i) {
+                d3.event.stopPropagation()
+                options.click(d.data, i)
+              })
+          }
         })
 
       // remove old arcs
