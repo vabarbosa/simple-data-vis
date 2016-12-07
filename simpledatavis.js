@@ -9,7 +9,7 @@
   var jsdom
 
   if (typeof module !== 'undefined' && module.exports) {
-    global.XMLHttpRequest = require('xhr2') // d3.json won't work otherwise'
+    global.XMLHttpRequest = require('xhr2') // d3.json won't work otherwise
     d3 = require('d3')
     jsdom = require('jsdom').jsdom
   } else {

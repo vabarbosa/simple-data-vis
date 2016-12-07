@@ -94,7 +94,6 @@
         svg.attr('width', width + margin.left + margin.right)
           .attr('height', height + margin.top + margin.bottom)
           .attr('xmlns', 'http://www.w3.org/2000/svg')
-          .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
           .style('color', '#264a60')
           .style('fill', '#264a60')
           .style('font-family', 'HelvNeue,Helvetica,sans-serif')
