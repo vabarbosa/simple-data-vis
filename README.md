@@ -7,23 +7,31 @@ Once installed the module can be used to access any REST API that returns JSON a
 
 # Install
 
-Include the following files in your HTML file:  
+* __Node.js__
 
-* [D3](https://d3js.org/)
-* [`simpledatavis.js`](https://github.com/ibm-cds-labs/simple-data-vis/blob/master/simpledatavis.js)
+	```
+	npm install --save simple-data-vis
+	```
 
-```
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="simpledatavis.js"></script>
-```  
+* __browser__
 
-Also include the desired visualizations:
-
-```
-<script type="text/javascript" src="vis/simpledatavis-barchart.js"></script>
-<script type="text/javascript" src="vis/simpledatavis-bubblechart.js"></script>
-<script type="text/javascript" src="vis/simpledatavis-piechart.js"></script>
-```  
+	Include the following files in your HTML file:  
+	
+	* [D3](https://d3js.org/)
+	* [`simpledatavis.js`](https://github.com/ibm-cds-labs/simple-data-vis/blob/master/simpledatavis.js)
+	
+	```
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<script src="simpledatavis.js"></script>
+	```  
+	
+	Also include the desired visualizations:
+	
+	```
+	<script type="text/javascript" src="vis/simpledatavis-barchart.js"></script>
+	<script type="text/javascript" src="vis/simpledatavis-bubblechart.js"></script>
+	<script type="text/javascript" src="vis/simpledatavis-piechart.js"></script>
+	```  
 
 
 # Usage
@@ -47,11 +55,15 @@ The module can be initialized via JavaScript or using HTML data attributes:
 * __Javascript__
 
 	```
-	var datavis = new SimpleDataVis(dataUrl);
-	datavis.render('#chartwrapper');
+	var datavis = SimpleDataVis(dataUrl);
+	datavis
+		.on('end', function (data, svgnode) {
+			// chart has been created and available in the svgnode (D3 selection)
+		})
+		.render(selector);
 	```
 
-	where __dataUrl__ is the url to retrieve the JSON data. The __render()__ function is called passing in the selector where the visualization will be placed.
+	where __dataUrl__ is the url to retrieve the JSON data. The __render()__ function is called passing in the selector where the visualization will be placed. For Node.js, the selector is not used/required instead the SVG will be available as a D3 selection in the _onEnd_ callback.
 	
   
 When the `DOMContentLoaded` event is fired the SimpleDataVis will check the page for the HTML `data-vis` attributes. If none is found or the DOM element (with `data-vis` attributes) is added to the page after the event, then the module would need to be initialized via JavaScript (i.e. `SimpleDataVis.init()`).  
