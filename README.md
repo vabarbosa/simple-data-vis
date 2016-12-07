@@ -64,100 +64,12 @@ The module can be initialized via JavaScript or using HTML data attributes:
 	```
 
 	where __dataUrl__ is the url to retrieve the JSON data. The __render()__ function is called passing in the selector where the visualization will be placed. For Node.js, the selector is not used/required instead the SVG will be available as a D3 selection in the _onEnd_ callback.
-	
-  
-When the `DOMContentLoaded` event is fired the SimpleDataVis will check the page for the HTML `data-vis` attributes. If none is found or the DOM element (with `data-vis` attributes) is added to the page after the event, then the module would need to be initialized via JavaScript (i.e. `SimpleDataVis.init()`).  
+ 
 
+# Additional Info
 
-# Visualizations
+Additional information available in the [Simple Data Vis Wiki](https://github.com/ibm-cds-labs/simple-data-vis/wiki).
 
-Various visualizations are available to display the data. If no visualization is specified the module will try to select an appropriate one to show the data. Visualizations can be found in the [`/vis`](https://github.com/ibm-cds-labs/simple-data-vis/tree/master/vis) folder of the respository.  
-
-| Visualization | Data schema | Attributes | Description |
-|---|---|---|---|
-| bar-chart | `[{ key: "", value: n }, ...]` | `tooltip` | Horizontal bar chart where each _key_ is represented by a horizontal bar whose length is determined by _value_. |
-| pie-chart | `[{ key: "", value: n }, ...]` | <ul><li>`tooltip`</li><li>`donut`: true, to render as donut chart</li></ul> | A pie chart where each _key_ is represented by a slice of the pie. The size of the slice is a percentage of _value_ to the sum of all _values_. |
-| bubble-chart | `[{ key: "", value: n }, ...]` | `tooltip` | Bubble chart where each _key_ is represented by a circle with radius determined by _value_. |
-| grouped-bar-chart | `[{ key: "", value: { v1: n, v2: n, ...} }, ...]` | <ul><li>`tooltip`</li><li>`maxgroups`: number of _key_ groups to show per single chart. multiple charts created if more _keys_ exist</li></ul> | Bar chart grouped by specified _keys_ |
-| stacked-bar-chart | `[{ key: "", value: { v1: n, v2: n, ...} }, ...]` |  | Bar chart stacked by specified _keys_ |
-| range-bar-chart | `[{ key: "", value: { min: n, max: n, sum: n, count: n } }, ...]` | <ul><li>`tooltip`</li><li>`min`: minimum value for the x scale</li><li>`max`: maximum value for the x axis</li></ul> | Bar chart staggered according to specified _min_ and _max_ values |
-| table-vis | `[{ field1: "", field2: "", ...}, ...]` |  `htmlcells`: true, if table cells should allow html content | Table with each item in the data represented by a row and the columns set to the fields of the items. |
-| timeline | `[{ key: "", date: d, value: n }, ...]` | `scatter`: true, if data point should not be connected | Timeline where each _value_ is plotted against the corresponding _date_. |
-| map-vis | `[{ key: "", geo: [long, lat], value: n }, ...]` | <ul><li>`tooltip`</li><li>`features`: [topojson](https://github.com/mbostock/topojson/wiki) features used for drawing the map</li></ul> | Map where each _value_ is plotted against the longitude and latitude as provided by _geo_. |
-
-
-# API
-
-### attr(_name_, [_value_])  
-
-Get or set attributes.
-
-__name__ - (_Required_) the name of the attribute/option to set or get  
-__value__ - (_Optional_) if omitted the current value of the attribute is returned. If set to `null` the attribute is removed. Otherwise the attribute is set to the specified value.
-
-Current set of attributes include:
-
-| Name | Type | HTML data attribute | Description |
-|---|---|---|---|
-| type | string | `data-vis-type` | the visualization to render (e.g., _bar-chart_, _bubble-chart_, etc.) |
-| tooltip | string or function | `data-vis-tooltip` | the message or a function that returns the message to be dislayed when hovering over a specific areas of the visualization (based on the visualization). Examples: <br/> `dataVis.attr('tooltip', 'Nothing to see here')` <br/> `dataVis.attr('tooltip', function(d) { return d.key })`  
-
-### on(_type_, _callback_)
-
-Set the callback functions.
-
-__type__ - (_Required_) the callback type to set (i.e., _data_, _end_, _fail_)  
-__value__ - (_Required_) if omitted the callback is returned. If set to `null` the callback is removed. Otherwise the callback is set to the specified value.
-
-For example:
-
-```
-// insert HTML link in the data
-var datawithlink = function(data) {
-	return data.map(function(d) {
-		d.link = '<a href="' + d.key + '">' + d.value + '</a>';
-		return d;
-	});
-}
-
-// create a table-vis with HTML enabled cells, making the inserted links clickable
-var tableVis = new SimpleDataVis(dataUrl);
-tableVis
-	.attr('type', 'table-vis')
-	.attr('htmlcells', true)
-	.on('data', datawithlink)
-	.render('#dataTableWrapper');
-```
-
-```
-// create a bar-chart, displaying only first ten results
-var barChart = new SimpleDataVis(dataUrl);
-barChart
-	.attr('type', 'bar-chart')
-	.on('data', function(data) { return data.slice(0, 10)})
-	.render('#firstTenWrapper');
-```
-
-Available callbacks include:
-
-| Name | Type | HTML data attribute | Callback Arguments | Description |
-|---|---|---|---|---|
-| start | string or function | `data-vis-onstart` | `dataUrl` - the url that will be used to retrieve the data | _Optional_ - called when data is about to be retrieved |
-| data | string or function | `data-vis-ondata` | `data` - the data that was retrieved | _Optional_ - called when data has been retrieved but before rendering begins. This callback can be used to transform the data before it is rendered. |
-| end | string or function | `data-vis-onend` |  | _Optional_ - called when data visualization completes. |
-| fail | string or function | `data-vis-onfail` | `error` - the error message | _Optional_ - called when data retrieval fails or data visualization fails. |  
-
-### render(selector)
-
-Render the visualization within the HTML DOM defined by the given CSS selector. Any `svg` elements within the selector DOM will be replaced.
-
-### init()
-
-Visualization is automatically performed when the DOM is successfully processed. In addition, it can also be triggered programmatically to reinspect and reinitiate the DOM elements.
-	
-```
-SimpleDataVis.init();
-```  
 
 # Demo  
 
