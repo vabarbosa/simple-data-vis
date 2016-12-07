@@ -1,0 +1,24 @@
+{
+  "name": "simple-data-vis",
+  "version": "0.2.0",
+  "description": "simple data visualizations using d3",
+  "main": "simpledatavis.js",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ibm-cds-labs/simple-data-vis/issues"
+  },
+  "homepage": "https://github.com/ibm-cds-labs/simple-data-vis#readme",
+  "author": "va@us.ibm.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibm-cds-labs/simple-data-vis.git"
+  },
+  "devDependencies": {
+    "standard": "^8.1.0"
+  },
+  "dependencies": {
+    "d3": "3.5.17",
+    "jsdom": "^9.8.3",
+    "xhr2": "*"
+  }
+}

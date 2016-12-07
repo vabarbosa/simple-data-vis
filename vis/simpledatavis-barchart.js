@@ -1,153 +1,179 @@
-/* global d3, SimpleDataVis */
+/* global SimpleDataVis */
 
 /**
  *  - Bar Chart visualization for the SimpleDataVis JavaScript module
  */
-(function (datavis) {
-  datavis.register({
-    type: 'bar-chart',
+(function () {
+  var BarChartVis = function (datavis) {
+    var d3 = typeof module !== 'undefined' && module.exports ? require('d3') : window.d3
 
-    canRender: function (barchartdata) {
-      var data = barchartdata ? (barchartdata.data || barchartdata) : []
-      // an array of objects with key/value
-      return Object.prototype.toString.call(data) === '[object Array]' &&
-        data.length &&
-        data.length > 0 &&
-        data[0].hasOwnProperty('key') &&
-        !isNaN(parseInt(data[0].value, 10))
-    },
+    datavis.register({
+      type: 'bar-chart',
 
-    render: function (selection, barchartdata, options, callbacks) {
-      // initTooltip()
-      var xScale = d3.scale.linear()
-      var yScale = d3.scale.linear()
+      canRender: function (barchartdata) {
+        var data = barchartdata ? (barchartdata.data || barchartdata) : []
+        // an array of objects with key/value
+        return Object.prototype.toString.call(data) === '[object Array]' &&
+          data.length &&
+          data.length > 0 &&
+          data[0].hasOwnProperty('key') &&
+          !isNaN(parseInt(data[0].value, 10))
+      },
 
-      var data = barchartdata ? (barchartdata.data || barchartdata) : []
+      render: function (selection, barchartdata, options, callbacks) {
+        // initTooltip()
+        var xScale = d3.scale.linear()
+        var yScale = d3.scale.linear()
 
-      var box = selection.node().getBoundingClientRect()
-      var width = (box.width || 600)
-      var h = (box.height || 600)
-      var margin = { left: 100, right: 75 }
+        var data = barchartdata ? (barchartdata.data || barchartdata) : []
 
-      var height = Math.min(h, data.length * 50)
+        var box = selection.node().getBoundingClientRect()
+        var width = (box.width || 1024)
+        var h = (box.height || 600)
+        var margin = { left: 100, right: 75 }
 
-      var cdom = data.map(function (d) { return d.key })
-      cdom.sort(function (a, b) { return a > b })
-      var color = d3.scale.category10().domain(cdom)
+        var height = Math.min(h, data.length * 50)
 
-      // set the ranges
-      xScale.range([margin.left, width - margin.left - margin.right])
-      yScale.range([0, height])
+        var cdom = data.map(function (d) { return d.key })
+        cdom.sort(function (a, b) { return a > b })
+        var color = d3.scale.category10().domain(cdom)
 
-      // scale the data
-      xScale.domain([0, d3.max(data, function (d) { return d.value })])
-      yScale.domain([0, data.length])
+        // set the ranges
+        xScale.range([margin.left, width - margin.left - margin.right])
+        yScale.range([0, height])
 
-      // setup the svg element
-      var svg = selection.selectAll('svg').data([data])
-      svg.enter().append('svg')
-      svg.attr('width', width)
-        .attr('height', height)
+        // scale the data
+        xScale.domain([0, d3.max(data, function (d) { return d.value })])
+        yScale.domain([0, data.length])
 
-      var bars = svg.selectAll('rect.bar').data(data)
+        // setup the svg element
+        var svg = selection.selectAll('svg').data([data])
+        svg.enter().append('svg')
+        svg.attr('width', width)
+          .attr('height', height)
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
+          .style('color', '#264a60')
+          .style('fill', '#264a60')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
 
-      // add new bars
-      bars.enter().append('rect')
-        .attr('class', 'bar')
-        .attr('opacity', 0)
+        var bars = svg.selectAll('rect.bar').data(data)
 
-      // update bars
-      bars.transition()
-        .attr('x', xScale(0))
-        .attr('y', function (d, i) { return yScale(i + 0.1) })
-        .attr('height', function (d, i) {
-          return yScale(i + 0.9) - yScale(i + 0.1)
-        })
-        .attr('width', function (d) { return xScale(d.value) })
-        .attr('opacity', 1)
-        .style('fill', function (d, i) { return color(d.key) })
-        .each('end', function (d, i) {
-          d3.select(this)
+        // add new bars
+        bars.enter().append('rect')
+          .attr('class', 'bar')
+          .attr('opacity', 0)
+
+        // update bars
+        var barstransition = typeof module === 'undefined' || !module.exports ? bars.transition() : bars
+
+        barstransition
+          .attr('x', xScale(0))
+          .attr('y', function (d, i) { return yScale(i + 0.1) })
+          .attr('height', function (d, i) {
+            return yScale(i + 0.9) - yScale(i + 0.1)
+          })
+          .attr('width', function (d) { return xScale(d.value) })
+          .attr('opacity', 1)
+          .style('fill', function (d, i) { return color(d.key) })
+
+        if (typeof module === 'undefined' || !module.exports) {
+          bars
             .on('mouseover', function (d, i) {
               SimpleDataVis.tooltip.mouseover(d, i, options)
             })
             .on('mousemove', SimpleDataVis.tooltip.mousemove)
             .on('mouseout', SimpleDataVis.tooltip.mouseout)
+        }
 
-          if (options.click) {
-            d3.select(this)
-              .style('cursor', 'pointer')
-              .on('click', function (d, i) {
-                d3.event.stopPropagation()
-                options.click(d, i)
-              })
-          }
-        })
+        if (options.click) {
+          bars
+            .style('cursor', 'pointer')
+            .on('click', function (d, i) {
+              d3.event.stopPropagation()
+              options.click(d, i)
+            })
+        }
 
-      // remove old bars
-      bars.exit().transition()
-        .attr('opacity', 0)
-        .attr('width', 0)
-        .remove()
+        // remove old bars
+        bars.exit().transition()
+          .attr('opacity', 0)
+          .attr('width', 0)
+          .remove()
 
-      // key labels
-      var keyLabels = svg.selectAll('text.barkey').data(data)
+        // key labels
+        var keyLabels = svg.selectAll('text.barkey').data(data)
 
-      // add new key labels
-      keyLabels.enter().append('text')
-        .attr('class', 'barkey')
-        .attr('opacity', 0)
-        .attr('dx', '-0.3em')
-        .attr('dy', '0.35em')
-        .attr('text-anchor', 'end')
-        .on('mouseover', function (d, i) {
-          SimpleDataVis.tooltip.mouseover(d, i, options)
-        })
-        .on('mousemove', SimpleDataVis.tooltip.mousemove)
-        .on('mouseout', SimpleDataVis.tooltip.mouseout)
+        // add new key labels
+        keyLabels.enter().append('text')
+          .attr('class', 'barkey')
+          .attr('opacity', 0)
+          .attr('dx', '-0.3em')
+          .attr('dy', '0.35em')
+          .attr('text-anchor', 'end')
 
-      // update key labels
-      keyLabels.transition()
-        .attr('x', xScale(0))
-        .attr('y', function (d, i) { return yScale(i + 0.5) })
-        .attr('opacity', 1)
-        .text(function (d) {
-          var l = margin.left / 10
-          if (d.key.length > l) {
-            return d.key.substring(0, l) + '...'
-          } else {
-            return d.key
-          }
-        })
+        if (typeof module === 'undefined' || !module.exports) {
+          keyLabels
+            .on('mouseover', function (d, i) {
+              SimpleDataVis.tooltip.mouseover(d, i, options)
+            })
+            .on('mousemove', SimpleDataVis.tooltip.mousemove)
+            .on('mouseout', SimpleDataVis.tooltip.mouseout)
+        }
 
-      // remove old key labels
-      keyLabels.exit().transition()
-        .attr('opacity', 0)
-        .attr('x', 0)
-        .remove()
+        // update key labels
+        var keylabelstransition = typeof module === 'undefined' || !module.exports ? keyLabels.transition() : keyLabels
+        keylabelstransition
+          .attr('x', xScale(0))
+          .attr('y', function (d, i) { return yScale(i + 0.5) })
+          .attr('opacity', 1)
+          .text(function (d) {
+            var l = margin.left / 10
+            if (d.key.length > l) {
+              return d.key.substring(0, l) + '...'
+            } else {
+              return d.key
+            }
+          })
 
-      // value labels
-      var valueLabels = svg.selectAll('text.barvalue').data(data)
+        // remove old key labels
+        keyLabels.exit().transition()
+          .attr('opacity', 0)
+          .attr('x', 0)
+          .remove()
 
-      // add new value labels
-      valueLabels.enter().append('text')
-        .attr('class', 'barvalue')
-        .attr('opacity', 0)
-        .attr('dx', '0.3em')
-        .attr('dy', '0.35em')
+        // value labels
+        var valueLabels = svg.selectAll('text.barvalue').data(data)
 
-      // update value labels
-      valueLabels.transition()
-        .attr('x', function (d) { return xScale(d.value) + margin.left })
-        .attr('y', function (d, i) { return yScale(i + 0.5) })
-        .attr('opacity', 1)
-        .text(function (d) { return '(' + d.value + ')' })
+        // add new value labels
+        valueLabels.enter().append('text')
+          .attr('class', 'barvalue')
+          .attr('opacity', 0)
+          .attr('dx', '0.3em')
+          .attr('dy', '0.35em')
 
-      // remove old value labels
-      valueLabels.exit().transition()
-        .attr('opacity', 0)
-        .attr('x', 0)
-        .remove()
-    }
-  })
-}(SimpleDataVis))
+        // update value labels
+        var valuelabelstransition = typeof module === 'undefined' || !module.exports ? valueLabels.transition() : valueLabels
+        valuelabelstransition
+          .attr('x', function (d) { return xScale(d.value) + margin.left })
+          .attr('y', function (d, i) { return yScale(i + 0.5) })
+          .attr('opacity', 1)
+          .text(function (d) { return '(' + d.value + ')' })
+
+        // remove old value labels
+        valueLabels.exit().transition()
+          .attr('opacity', 0)
+          .attr('x', 0)
+          .remove()
+      }
+    })
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = BarChartVis
+  } else {
+    BarChartVis(SimpleDataVis)
+  }
+}())

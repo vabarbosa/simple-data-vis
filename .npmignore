@@ -1,0 +1,9 @@
+.project
+.cfignore
+.DS_Store
+.vscode
+manifest.yml
+demo
+scripts
+lib
+node_modules
