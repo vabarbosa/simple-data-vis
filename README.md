@@ -1,6 +1,10 @@
 # Simple Data Vis
 
-Simple Data Vis is a JavaScript module initially developed to visualize data gathered by the [Simple Logging Service](https://developer.ibm.com/clouddataservices/2016/03/03/simple-metrics-collector-microservices-edition/) for its [visualization page](http://simple-logging-service-vis.mybluemix.net/). It is however generic enough that can be used to visual various types of data including [cloudant.com views](https://gist.github.com/vabarbosa/bff35152c3888f4e2c0ad92e2511dc2b).
+Simple Data Vis is a JavaScript module initially developed to visualize data gathered by the [Simple Logging Service](https://developer.ibm.com/clouddataservices/2016/03/03/simple-metrics-collector-microservices-edition/) for its [visualization page](http://simple-logging-service-vis.mybluemix.net/).
+
+<img src="https://advocated-vis.mybluemix.net/chart/allActivities" />
+
+It is however generic enough that can be used to visual various types of data including [cloudant.com views](https://gist.github.com/vabarbosa/bff35152c3888f4e2c0ad92e2511dc2b).
 
 Once installed the module can be used to access any REST API that returns JSON array of key/value pairs and have that data visually displayed onto the web page (using D3).
 
