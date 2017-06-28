@@ -22,7 +22,7 @@ Once installed the module can be used to access any REST API that returns JSON a
 	Include the following files in your HTML file:  
 	
 	* [D3](https://d3js.org/)
-	* [`simpledatavis.js`](https://github.com/ibm-cds-labs/simple-data-vis/blob/master/simpledatavis.js)
+	* [`simpledatavis.js`](https://github.com/ibm-watson-data-lab/simple-data-vis/blob/master/simpledatavis.js)
 	
 	```
 	<script src="https://d3js.org/d3.v3.min.js"></script>
@@ -72,9 +72,9 @@ The module can be initialized via JavaScript or using HTML data attributes:
 
 # Additional Info
 
-Additional information available in the [Simple Data Vis Wiki](https://github.com/ibm-cds-labs/simple-data-vis/wiki).
+Additional information available in the [Simple Data Vis Wiki](https://github.com/ibm-watson-data-lab/simple-data-vis/wiki).
 
 
 # Demo  
 
-Examples can be found in the [`/demo`](https://github.com/ibm-cds-labs/simple-data-vis/tree/master/demo) folder of the respository.  
+Examples can be found in the [`/demo`](https://github.com/ibm-watson-data-lab/simple-data-vis/tree/master/demo) folder of the respository.  
