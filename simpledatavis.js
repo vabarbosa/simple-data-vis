@@ -140,17 +140,27 @@
         var n = 0
         var s = selection.select('.simpledatavis')
         var e = s.selectAll('*')
+        var start = function () { n++ }
+        var end = function () {
+          this.remove()
+          if (--n === 0 && callback) {
+            s.remove()
+            callback()
+          }
+        }
+
         if (!s.empty() && (!exclude || !s.classed(exclude)) && (!e.empty())) {
-          e.data([]).exit().transition()
+          var t = e.data([]).exit().transition()
             .attr('opacity', 0)
             .attr('width', 0)
-            .each('start', function () { n++ })
-            .each('end', function () {
-              this.remove()
-              if (--n === 0 && callback) {
-                s.remove()
-                callback()
-              } })
+
+          if (d3.version.split('.')[0] === '3') {
+            t.each('start', start)
+              .each('end', end)
+          } else {
+            t.on('start', start)
+              .on('end', end)
+          }
         } else if (callback) {
           callback()
         }
@@ -502,10 +512,17 @@
           d3.select('body')
             .selectAll('.simpledatavis-tooltip')
             .data(['simpledatavis-tooltip'])
+
+      if (d3.version.split('.')[0] === '3') {
+        tooltipselection.enter().append('div')
+          .attr('class', 'simpledatavis-tooltip')
+      } else {
+        tooltipselection = tooltipselection.enter().append('div')
+            .attr('class', 'simpledatavis-tooltip')
+          .merge(tooltipselection)
+      }
+
       tooltipselection
-        .enter()
-        .append('div')
-        .attr('class', 'simpledatavis-tooltip')
         .style('background-color', 'rgba(21, 41, 53, 0.9)')
         .style('color', '#ffffff')
         .style('font-family', 'HelvNeue,Helvetica,sans-serif')

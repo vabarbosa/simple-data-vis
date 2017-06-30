@@ -5,9 +5,9 @@
 
   <title>simpledatavis.js</title>
   
-  <link rel="stylesheet" type="text/css" href="classic.css">
+  <link rel="stylesheet" type="text/css" href="demo.css">
   
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 
   <script type="text/javascript" src="../simpledatavis.js"></script>
   <script type="text/javascript" src="../vis/simpledatavis-barchart.js"></script>
@@ -32,7 +32,7 @@
         .rollup(function(l) { return d3.sum(l, function(d) { return d.value; }); })
         .entries(languages);
 
-      languages.forEach(function(d) { d.value = d.values; });
+      // languages.forEach(function(d) { d.value = d.values; });
       languages.sort(function(a, b) { return a.value < b.value });
 
       return languages.slice(0,5);
@@ -50,7 +50,7 @@
         .rollup(function(l) { return d3.sum(l, function(d) { return d.value; }); })
         .entries(specialties);
 
-      specialties.forEach(function(d) { d.value = d.values; });
+      // specialties.forEach(function(d) { d.value = d.values; });
       specialties.sort(function(a, b) { return a.value < b.value });
 
       return specialties;
