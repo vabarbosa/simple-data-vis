@@ -4,9 +4,9 @@ Simple Data Vis is a JavaScript module initially developed to visualize data gat
 
 <img src="https://advocated-vis.mybluemix.net/chart/allActivities" />
 
-It is however generic enough that can be used to visual various types of data including [cloudant.com views](https://gist.github.com/vabarbosa/bff35152c3888f4e2c0ad92e2511dc2b).
+It is however generic enough that can be used to visual various types of data including [cloudant.com views](https://medium.com/ibm-watson-data-lab/eye-candy-for-cloudant-201a195ed6c).
 
-Once installed the module can be used to access any REST API that returns JSON array of key/value pairs and have that data visually displayed onto the web page (using D3).
+Once installed the module can be used to render JSON Array data visually onto a web page (with D3). The data can be provided directly or via a REST endpoint.
 
 
 # Install
@@ -21,17 +21,17 @@ Once installed the module can be used to access any REST API that returns JSON a
 
 	Include the following files in your HTML file:  
 	
-	* [D3](https://d3js.org/)
+	* [D3](https://d3js.org/) - version 3 and version are supported
 	* [`simpledatavis.js`](https://github.com/ibm-watson-data-lab/simple-data-vis/blob/master/simpledatavis.js)
 	
-	```
-	<script src="https://d3js.org/d3.v3.min.js"></script>
+	```html
+	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<script src="simpledatavis.js"></script>
 	```  
 	
 	Also include the desired visualizations:
 	
-	```
+	```html
 	<script type="text/javascript" src="vis/simpledatavis-barchart.js"></script>
 	<script type="text/javascript" src="vis/simpledatavis-bubblechart.js"></script>
 	<script type="text/javascript" src="vis/simpledatavis-piechart.js"></script>
@@ -44,7 +44,7 @@ The module can be initialized via JavaScript or using HTML data attributes:
 
 * __HTML data attributes__
 
-	```
+	```html
 	<div type="text" data-vis="http://some-data-url"
 	        data-vis-type="bar-chart"
 	        data-vis-ondata="onDataCallback"></div>
@@ -58,16 +58,16 @@ The module can be initialized via JavaScript or using HTML data attributes:
 	
 * __Javascript__
 
-	```
-	var datavis = SimpleDataVis(dataUrl);
-	datavis
+	```js
+	SimpleDataVis(URL_or_JSONArray)
+		.attr('type', 'bar-chart')
 		.on('end', function (data, svgnode) {
 			// chart has been created and available in the svgnode (D3 selection)
 		})
-		.render(selector);
+		.render(selector)
 	```
 
-	where __dataUrl__ is the url to retrieve the JSON data. The __render()__ function is called passing in the selector where the visualization will be placed. For Node.js, the selector is not used/required instead the SVG will be available as a D3 selection in the _onEnd_ callback.
+	where __URL\_or\_JSONArray__ is the url to retrieve the JSON data or the actual JSON data. The __render()__ function is called passing in the selector where the visualization will be placed. For Node.js, the selector is not used instead the SVG will be available as a D3 selection in the _onEnd_ callback.
  
 
 # Additional Info
