@@ -21,7 +21,7 @@ Once installed the module can be used to render JSON Array data visually onto a 
 
 	Include the following files in your HTML file:  
 	
-	* [D3](https://d3js.org/) - version 3 and version are supported
+	* [D3](https://d3js.org/) - version 3 and version 4 are supported
 	* [`simpledatavis.js`](https://github.com/ibm-watson-data-lab/simple-data-vis/blob/master/simpledatavis.js)
 	
 	```html
@@ -29,7 +29,7 @@ Once installed the module can be used to render JSON Array data visually onto a 
 	<script src="simpledatavis.js"></script>
 	```  
 	
-	Also include the desired visualizations:
+	Also include the desired [visualizations](https://github.com/ibm-watson-data-lab/simple-data-vis/wiki/Visualizations):
 	
 	```html
 	<script type="text/javascript" src="vis/simpledatavis-barchart.js"></script>
@@ -40,7 +40,7 @@ Once installed the module can be used to render JSON Array data visually onto a 
 
 # Usage
 
-The module can be initialized via JavaScript or using HTML data attributes:  
+The module can be initialized via [JavaScript](https://github.com/ibm-watson-data-lab/simple-data-vis/wiki/API#jsvis) or using [HTML data attributes](https://github.com/ibm-watson-data-lab/simple-data-vis/wiki/API#htmlvis):  
 
 * __HTML data attributes__
 
