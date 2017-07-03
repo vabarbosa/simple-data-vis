@@ -70,11 +70,13 @@ The module can be initialized via [JavaScript](https://github.com/ibm-watson-dat
 	where __URL\_or\_JSONArray__ is the url to retrieve the JSON data or the actual JSON data. The __render()__ function is called passing in the selector where the visualization will be placed. For Node.js, the selector is not used instead the SVG will be available as a D3 selection in the _onEnd_ callback.
  
 
-# Additional Info
+# Additional Info  
 
-Additional information available in the [Simple Data Vis Wiki](https://github.com/ibm-watson-data-lab/simple-data-vis/wiki).
+* [API](https://github.com/ibm-cds-labs/simple-data-vis/wiki/API)
+* [Visualizations](https://github.com/ibm-cds-labs/simple-data-vis/wiki/Visualizations)
+* [Samples](https://github.com/ibm-watson-data-lab/simple-data-vis/wiki/Samples)
 
 
 # Demo  
 
-Examples can be found in the [`/demo`](https://github.com/ibm-watson-data-lab/simple-data-vis/tree/master/demo) folder of the respository.  
+The [`/demo`](https://github.com/ibm-watson-data-lab/simple-data-vis/tree/master/demo) folder of the respository contains the source for this [page](https://ibm-watson-data-lab.github.io/simple-data-vis/demo/simpledatavis.html).  

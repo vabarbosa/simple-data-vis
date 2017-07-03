@@ -6,8 +6,7 @@ manifest.yml
 demo/d3.v3.min.js
 demo/d3.v4.min.js
 demo/topojson.v1.min.js
-demo/test.html
-demo/test.js
+wiki
 scripts
 lib
 node_modules
