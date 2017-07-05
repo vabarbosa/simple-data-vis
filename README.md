@@ -46,28 +46,39 @@ The module can be initialized via [JavaScript](https://github.com/ibm-watson-dat
 
 	```html
 	<div type="text" data-vis="http://some-data-url"
-	        data-vis-type="bar-chart"
-	        data-vis-ondata="onDataCallback"></div>
+	        data-vis-type="bar-chart"></div>
 	```
 
 	__data-vis__ - (_Required_) the url to retrieve the JSON data  
 	__data-vis-type__ - (_Optional_) the type of visualization to use to render the data (e.g., _bar-chart_, _pie-chart_, _bubble-chart_, etc.)  
-	__data-vis-ondata__ - (_Optional_) the callback function when data has been retrieved but before visualization is rendered  
 	
-	Additional attributes are available based on the visualization. See the __Visualizations__ section for more information.
+	Additional attributes are available based on the visualization. See the __Visualizations__ section for more information.  
 	
-* __Javascript__
+* __JavaScript__
 
 	```js
 	SimpleDataVis(URL_or_JSONArray)
 		.attr('type', 'bar-chart')
-		.on('end', function (data, svgnode) {
-			// chart has been created and available in the svgnode (D3 selection)
-		})
 		.render(selector)
 	```
 
-	where __URL\_or\_JSONArray__ is the url to retrieve the JSON data or the actual JSON data. The __render()__ function is called passing in the selector where the visualization will be placed. For Node.js, the selector is not used instead the SVG will be available as a D3 selection in the _onEnd_ callback.
+	where __URL\_or\_JSONArray__ is the url to retrieve the JSON data or the actual JSON data. The __render()__ function is called passing in the (CSS) selector of where the visualization will be placed.  
+	
+* __Node.js__
+
+	```js
+	var SimpleDataVis = require('simple-data-vis')
+	
+	SimpleDataVis(URL_or_JSONArray)
+		.attr('type', 'bar-chart')
+		.on('end', function (data, selection) {
+			// chart has been created and available in the (D3) selection
+			var svghtml = selection.node().outerHTML
+		})
+		.render()
+	```
+
+	where __URL\_or\_JSONArray__ is the url to retrieve the JSON data or the actual JSON data. The __render()__ function is called and the SVG will be available as a D3 selection in the _onEnd_ callback.  
  
 
 # Additional Info  

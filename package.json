@@ -1,6 +1,6 @@
 {
   "name": "simple-data-vis",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "simple data visualizations using d3",
   "main": "simpledatavis.js",
   "license": "Apache-2.0",

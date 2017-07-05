@@ -4,6 +4,7 @@
 .vscode
 manifest.yml
 demo
+wiki
 scripts
 lib
 node_modules
