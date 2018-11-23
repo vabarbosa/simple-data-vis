@@ -58,7 +58,7 @@
         }
 
         var color = d3.scale.category10()
-        var margin = {top: 20, right: 150, bottom: 120, left: 80}
+        var margin = { top: 20, right: 150, bottom: 120, left: 80 }
         var box = selection.node().getBoundingClientRect()
         var width = (box.width || 1024) - margin.left - margin.right
         var height = (box.height || 600) - margin.top - margin.bottom
@@ -149,7 +149,7 @@
               var index = i
               d3.select(this)
                 .on('mouseover', function (d, i) {
-                  SimpleDataVis.tooltip.mouseover({key: d.l, value: d.y, data: data[index]}, i, opts)
+                  SimpleDataVis.tooltip.mouseover({ key: d.l, value: d.y, data: data[index] }, i, opts)
                 })
                 .on('mousemove', SimpleDataVis.tooltip.mousemove)
                 .on('mouseout', SimpleDataVis.tooltip.mouseout)
@@ -159,7 +159,7 @@
                   .style('cursor', 'pointer')
                   .on('click', function (d, i) {
                     d3.event.stopPropagation()
-                    options.click({key: d.l, value: d.y, data: d}, i)
+                    options.click({ key: d.l, value: d.y, data: d }, i)
                   })
               }
             })
@@ -177,9 +177,9 @@
           .attr('transform', 'translate(0,' + height + ')')
           .call(xAxis)
           .selectAll('text').style('text-anchor', 'start')
-            .attr('dx', '.8em')
-            .attr('dy', '.15em')
-            .attr('transform', function (d) { return 'rotate(45)' })
+          .attr('dx', '.8em')
+          .attr('dy', '.15em')
+          .attr('transform', function (d) { return 'rotate(45)' })
         xaxis.exit().remove()
 
         // the y axis
@@ -272,7 +272,7 @@
         }
 
         var color = d3.scaleOrdinal(d3.schemeCategory10)
-        var margin = {top: 20, right: 150, bottom: 120, left: 80}
+        var margin = { top: 20, right: 150, bottom: 120, left: 80 }
         var box = selection.node().getBoundingClientRect()
         var width = (box.width || 1024) - margin.left - margin.right
         var height = (box.height || 600) - margin.top - margin.bottom
@@ -311,19 +311,19 @@
         var svg = selection.selectAll('svg').data([data])
         svg.exit().remove()
         svg = svg.enter().append('svg')
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .style('font-family', 'HelvNeue,Helvetica,sans-serif')
-            .style('font-size', '0.8rem')
-            .style('font-weight', '300')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
+          .attr('width', width + margin.left + margin.right)
+          .attr('height', height + margin.top + margin.bottom)
           .merge(svg)
 
         // setup graph area
         var graph = svg.selectAll('g.series').data([data])
         graph.exit().remove()
         graph = graph.enter().append('g')
-            .attr('class', 'series')
+          .attr('class', 'series')
           .merge(graph)
         graph.attr('transform', function (d, i) {
           return 'translate(' + margin.left + ',' + (margin.top + (height + margin.bottom) * i) + ')'
@@ -332,7 +332,7 @@
         // setup a layer for stack entry
         var layer = graph.selectAll('.layer').data(layers)
         layer = layer.enter().append('g')
-            .attr('class', 'layer')
+          .attr('class', 'layer')
           .merge(layer)
         layer.style('fill', function (d, i) { return color(i) })
 
@@ -355,7 +355,7 @@
             .on('end', function (d, i) {
               d3.select(this)
                 .on('mouseover', function (d, i) {
-                  SimpleDataVis.tooltip.mouseover({key: d.data.key, value: (d[1] - d[0]), data: d.data}, i, opts)
+                  SimpleDataVis.tooltip.mouseover({ key: d.data.key, value: (d[1] - d[0]), data: d.data }, i, opts)
                 })
                 .on('mousemove', SimpleDataVis.tooltip.mousemove)
                 .on('mouseout', SimpleDataVis.tooltip.mouseout)
@@ -365,7 +365,7 @@
                   .style('cursor', 'pointer')
                   .on('click', function (d, i) {
                     d3.event.stopPropagation()
-                    options.click({key: d.l, value: d.y, data: d}, i)
+                    options.click({ key: d.l, value: d.y, data: d }, i)
                   })
               }
             })
@@ -375,24 +375,24 @@
         var xaxis = graph.selectAll('g.x').data([data])
         xaxis.exit().remove()
         xaxis = xaxis.enter().append('g')
-            .attr('class', 'x axis')
-            .style('font-size', '0.8rem')
+          .attr('class', 'x axis')
+          .style('font-size', '0.8rem')
           .merge(xaxis)
         var xaxistransition = typeof module === 'undefined' || !module.exports ? xaxis.transition() : xaxis
         xaxistransition
           .attr('transform', 'translate(0,' + height + ')')
           .call(xAxis)
           .selectAll('text').style('text-anchor', 'start')
-            .attr('dx', '.8em')
-            .attr('dy', '.15em')
-            .attr('transform', function (d) { return 'rotate(45)' })
+          .attr('dx', '.8em')
+          .attr('dy', '.15em')
+          .attr('transform', function (d) { return 'rotate(45)' })
 
         // the y axis
         var yaxis = graph.selectAll('g.y').data([data])
         yaxis.exit().remove()
         yaxis = yaxis.enter().append('g')
-            .attr('class', 'y axis')
-            .style('font-size', '0.8rem')
+          .attr('class', 'y axis')
+          .style('font-size', '0.8rem')
           .merge(yaxis)
         var yaxistransition = typeof module === 'undefined' || !module.exports ? yaxis.transition() : yaxis
         yaxistransition
@@ -419,7 +419,7 @@
 
         // add new keys
         legendkey = legendkey.enter().append('rect')
-            .attr('class', 'legend')
+          .attr('class', 'legend')
           .merge(legendkey)
 
         // update keys
@@ -440,7 +440,7 @@
 
         // add new labels
         legendlabel = legendlabel.enter().append('text')
-            .attr('class', 'legend')
+          .attr('class', 'legend')
           .merge(legendlabel)
 
         // update labels

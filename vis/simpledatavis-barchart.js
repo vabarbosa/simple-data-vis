@@ -202,10 +202,10 @@
         // setup the svg element
         var svg = selection.selectAll('svg').data([data])
         svg = svg.enter().append('svg')
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .style('font-family', 'HelvNeue,Helvetica,sans-serif')
-            .style('font-size', '0.8rem')
-            .style('font-weight', '300')
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
           .merge(svg)
         svg.attr('width', width)
           .attr('height', height)
@@ -214,8 +214,8 @@
 
         // add new bars
         bars = bars.enter().append('rect')
-            .attr('class', 'bar')
-            .attr('opacity', 0)
+          .attr('class', 'bar')
+          .attr('opacity', 0)
           .merge(bars)
 
         // update bars
@@ -260,12 +260,12 @@
 
         // add new key labels
         keyLabels = keyLabels.enter().append('text')
-            .attr('class', 'barkey')
+          .attr('class', 'barkey')
           .merge(keyLabels)
-            .attr('opacity', 0)
-            .attr('dx', '-0.3em')
-            .attr('dy', '0.35em')
-            .attr('text-anchor', 'end')
+          .attr('opacity', 0)
+          .attr('dx', '-0.3em')
+          .attr('dy', '0.35em')
+          .attr('text-anchor', 'end')
 
         if (typeof module === 'undefined' || !module.exports) {
           keyLabels
@@ -302,11 +302,11 @@
 
         // add new value labels
         valueLabels = valueLabels.enter().append('text')
-            .attr('class', 'barvalue')
+          .attr('class', 'barvalue')
           .merge(valueLabels)
-            .attr('opacity', 0)
-            .attr('dx', '0.3em')
-            .attr('dy', '0.35em')
+          .attr('opacity', 0)
+          .attr('dx', '0.3em')
+          .attr('dy', '0.35em')
 
         // update value labels
         var valuelabelstransition = typeof module === 'undefined' || !module.exports ? valueLabels.transition() : valueLabels

@@ -239,21 +239,21 @@
         // setup the svg element
         var svg = selection.selectAll('svg').data([data])
         svg = svg.enter().append('svg')
-            .attr('version', '1.1')
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .style('color', '#264a60')
-            .style('fill', '#264a60')
-            .style('font-family', 'HelvNeue,Helvetica,sans-serif')
-            .style('font-size', '0.8rem')
-            .style('font-weight', '300')
+          .attr('version', '1.1')
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .style('color', '#264a60')
+          .style('fill', '#264a60')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
           .merge(svg)
-            .attr('width', width)
-            .attr('height', height)
+          .attr('width', width)
+          .attr('height', height)
 
         // pie chart graphic
         var graph = svg.selectAll('g').data([data])
         graph = graph.enter().append('g')
-            .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+          .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
           .merge(graph)
 
         // pie chart arcs
@@ -261,18 +261,18 @@
 
         // add & update arcs
         arcs = arcs.enter().append('path')
-            .each(function (d) {
-              this._current = d
-            })
-            .attr('d', arc)
+          .each(function (d) {
+            this._current = d
+          })
+          .attr('d', arc)
           .merge(arcs)
-            .each(function (d) {
-              d.outerRadius = outerRadius - 20
-              d.key = d.data.key
-            })
-            .attr('fill', function (d, i) {
-              return color(d.data.key)
-            })
+          .each(function (d) {
+            d.outerRadius = outerRadius - 20
+            d.key = d.data.key
+          })
+          .attr('fill', function (d, i) {
+            return color(d.data.key)
+          })
 
         arcs.transition().attrTween('d', arcResize)
           .on('end', function (d) {
@@ -301,7 +301,7 @@
                 })
             }
           })
-        
+
         // remove old arcs
         arcs.exit().transition()
           .style('opacity', 0)
@@ -312,12 +312,12 @@
 
         // add new keys
         legendkey = legendkey.enter().append('rect')
-            .attr('class', 'legend')
-            .attr('width', 18)
-            .attr('height', 18)
+          .attr('class', 'legend')
+          .attr('width', 18)
+          .attr('height', 18)
           .merge(legendkey)
-            .attr('x', padding)
-            .attr('y', function (d, i) { return (i * 20) + padding })
+          .attr('x', padding)
+          .attr('y', function (d, i) { return (i * 20) + padding })
 
         // update keys
         legendkey.style('fill', function (d) { return color(d) })
@@ -333,11 +333,11 @@
 
         // add new labels
         legendlabel = legendlabel.enter().append('text')
-            .attr('class', 'legend')
-            .attr('dy', '.35em')
+          .attr('class', 'legend')
+          .attr('dy', '.35em')
           .merge(legendlabel)
-            .attr('x', 24 + padding)
-            .attr('y', function (d, i) { return (i * 20 + 9) + padding })
+          .attr('x', 24 + padding)
+          .attr('y', function (d, i) { return (i * 20 + 9) + padding })
 
         // update labels
         legendlabel.text(function (d) {

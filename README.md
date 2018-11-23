@@ -90,4 +90,4 @@ The module can be initialized via [JavaScript](https://github.com/ibm-watson-dat
 
 # Demo  
 
-The [`/demo`](https://github.com/ibm-watson-data-lab/simple-data-vis/tree/master/demo) folder of the respository contains the source for this [page](https://ibm-watson-data-lab.github.io/simple-data-vis/demo/simpledatavis.html).  
+The [`/demo`](https://github.com/ibm-watson-data-lab/simple-data-vis/tree/master/demo) folder of the repository contains the source for this [page](https://ibm-watson-data-lab.github.io/simple-data-vis/demo/simpledatavis.html).  

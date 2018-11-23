@@ -296,10 +296,10 @@
         // setup the svg element
         var svg = selection.selectAll('svg').data([data])
         svg = svg.enter().append('svg')
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .style('font-family', 'HelvNeue,Helvetica,sans-serif')
-            .style('font-size', '0.8rem')
-            .style('font-weight', '300')
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
           .merge(svg)
         svg.attr('width', width)
           .attr('height', height)
@@ -308,7 +308,7 @@
         var xAxis = d3.axisBottom(xScale)
         var xaxis = svg.selectAll('g.x').data([data])
         xaxis = xaxis.enter().append('g')
-            .attr('class', 'x axis')
+          .attr('class', 'x axis')
           .merge(xaxis)
         var xaxistransition = typeof module === 'undefined' || !module.exports ? xaxis.transition() : xaxis
         xaxistransition
@@ -329,8 +329,8 @@
 
         // add new bars
         bars = bars.enter().append('rect')
-            .attr('class', 'bar')
-            .attr('opacity', 0)
+          .attr('class', 'bar')
+          .attr('opacity', 0)
           .merge(bars)
 
         if (typeof module === 'undefined' || !module.exports) {
@@ -374,11 +374,11 @@
 
         // add new key labels
         keyLabels = keyLabels.enter().append('text')
-            .attr('class', 'barkey')
-            .attr('opacity', 0)
-            .attr('dx', '-0.3em')
-            .attr('dy', '0.35em')
-            .attr('text-anchor', 'end')
+          .attr('class', 'barkey')
+          .attr('opacity', 0)
+          .attr('dx', '-0.3em')
+          .attr('dy', '0.35em')
+          .attr('text-anchor', 'end')
           .merge(keyLabels)
 
         if (typeof module === 'undefined' || !module.exports) {
@@ -417,8 +417,8 @@
 
         // add new avg marker
         avgMarker = avgMarker.enter().append('rect')
-            .attr('class', 'avgvalue')
-            .attr('opacity', 0)
+          .attr('class', 'avgvalue')
+          .attr('opacity', 0)
           .merge(avgMarker)
 
         if (typeof module === 'undefined' || !module.exports) {

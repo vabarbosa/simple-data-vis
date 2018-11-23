@@ -3,105 +3,83 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-  <title>simpledatavis.js</title>
+  <title>simpledatavis.js | demo</title>
   
   <link rel="stylesheet" type="text/css" href="demo.css">
   
-  <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
   <script type="text/javascript" src="../simpledatavis.js"></script>
   <script type="text/javascript" src="../vis/simpledatavis-barchart.js"></script>
   <script type="text/javascript" src="../vis/simpledatavis-bubblechart.js"></script>
-  <script type="text/javascript" src="../vis/simpledatavis-piechart.js"></script>
   <script type="text/javascript" src="../vis/simpledatavis-groupedbarchart.js"></script>
+  <script type="text/javascript" src="../vis/simpledatavis-stackedbarchart.js"></script>
+  <script type="text/javascript" src="../vis/simpledatavis-piechart.js"></script>
+  <script type="text/javascript" src="../vis/simpledatavis-rangebarchart.js"></script>
 
   <script type="text/javascript">
-    function onFail(err) {
-      this.text(err);
+    const singleValueData = [
+      { key: 'aa', value: 14 },
+      { key: 'bb', value: 2 },
+      { key: 'cc', value: 8 },
+      { key: 'dd', value: 20 },
+      { key: 'ee', value: 11 },
+      { key: 'ff', value: 17 },
+      { key: 'gg', value: 8 },
+      { key: 'hh', value: 13 },
+      { key: 'ii', value: 5 },
+      { key: 'jj', value: 17 }
+    ]
+
+    function pieDataCallback (data) {
+      return data.map(row => {
+        row.value = row.value.count
+        return row
+      })
     }
 
-    // callback for team languages
-    function teamLanguagesOnData(data) {
-      var languages = [];
-      (data.rows || data).forEach(function (d) {
-        d.languages.forEach(function(l) { if (l) languages.push({ key:l, value:1 }); });
-      });
-      
-      languages = d3.nest()
-        .key(function(d) { return d.key; })
-        .rollup(function(l) { return d3.sum(l, function(d) { return d.value; }); })
-        .entries(languages);
-
-      // languages.forEach(function(d) { d.value = d.values; });
-      languages.sort(function(a, b) { return a.value < b.value });
-
-      return languages.slice(0,5);
+    function bubbleDataCallback (data) {
+      let updated = []
+      data.rows.forEach(function (row) {
+        Object.keys(row.value).forEach(function (k) {
+          updated.push({
+            key: [`${k}, ${row.key}`],
+            value: row.value[k]
+          })
+        })
+      })
+      return updated
     }
 
-    // callback for team specialties
-    function teamSpecialitiesOnData(data) {
-      var specialties = [];
-      (data.rows || data).forEach(function (d) {
-        d.specialties.forEach(function(l) { specialties.push({ key:l, value:1 }); });
-      });
-      
-      specialties = d3.nest()
-        .key(function(d) { return d.key; })
-        .rollup(function(l) { return d3.sum(l, function(d) { return d.value; }); })
-        .entries(specialties);
-
-      // specialties.forEach(function(d) { d.value = d.values; });
-      specialties.sort(function(a, b) { return a.value < b.value });
-
-      return specialties;
+    function onFail (err) {
+      this.text(err)
     }
 
-    // callback for got culture
-    function gotCultureOnData(data) {
-      var culture = [];
-      for (var g in data.counts.culture) {
-        culture.push({ key: g, value: data.counts.culture[g] });
-      }
-      culture.sort(function(a, b) { return a.value > b.value });
-      return culture;
-    }
+    window.addEventListener('DOMContentLoaded', function () {
+      SimpleDataVis('/demo/data/ratings.json')
+        .attr('type', 'stacked-bar-chart')
+        .on('fail', onFail)
+        .render('#stackedbarchart')
 
-    // callback for got books
-    function gotGenderByBooksOnData(data) {
-      var results = [];
-      var grouped = {};
+      SimpleDataVis('data/runtimes.json')
+        .attr('type', 'pie-chart')
+        .on('data', pieDataCallback)
+        .on('fail', onFail)
+        .render('#piechart')
 
-      (data.rows || data).forEach(function(row) {
-        var gender = row.gender || 'Unknown';
-        var books = row.books;
-
-        books.forEach(function(book) {
-          grouped[book] = grouped[book] ? grouped[book] : {};
-          grouped[book][gender] = (grouped[book][gender] || 0) + 1;
-        });
-      });
-
-      Object.keys(grouped).forEach(function(group) {
-        if (group) {
-          results.push({
-            key: group,
-            value: grouped[group]
-          });
-        }
-      });
-
-      results.sort(function(a,b) { return a.key.toLowerCase() > b.key.toLowerCase(); });
-      return results;
-    }
+      SimpleDataVis(singleValueData)
+        .attr('type', 'bar-chart')
+        .render('#barchart')
+    })
   </script>
 </head>
 
 <body>
   <div class="theme_classic">
     <div class="banner">
-      <a target="_blank"
-         href="https://developer.ibm.com/clouddataservices/simple-search-service/">
-         Simple Data Visualization // Dev</a>
+      <a href="https://github.com/vabarbosa/simple-data-vis" target="_blank">
+         simple-data-vis // demo
+      </a>
     </div>
     <section class="theme_light">
       <h1 class="type_heading">
@@ -110,69 +88,50 @@
     </section>
     <section class="theme_light bg_white">
 
-      <!-- dev advo languages -->
+      <!-- movie ratings by year (grouped) -->
       <figure class="guide-example theme_light bg_light-tint">
-        <p class="type_copy type_mark">
-          Top 5 languages of the IBM CDS Developer Advocates</p>
-        <div class="teamlanguages"
-          data-vis="http://simple-search-service-digitate-thema.mybluemix.net/search?q=*:*"
-          data-vis-type="bar-chart"
-          data-vis-ondata="teamLanguagesOnData"
-          data-vis-onfail="onFail"></div>
-        <p class="type_copy">
-          <a href="http://ibm-watson-data-lab.github.io/team"
-            target="_blank" class="type_link">
-            http://ibm-watson-data-lab.github.io/team</a>
-        </p>
-      </figure>
-
-      <!-- dev advo specialties -->
-      <figure class="guide-example theme_light bg_light-tint">
-        <p class="type_copy type_mark">
-          Specialties of the IBM CDS Developer Advocates</p>
-        <div class="teamspecialties"
-          data-vis="http://simple-search-service-digitate-thema.mybluemix.net/search?q=*:*"
-          data-vis-type="pie-chart"
-          data-vis-donut="true"
-          data-vis-ondata="teamSpecialitiesOnData"
-          data-vis-onfail="onFail"></div>
-        <p class="type_copy">
-          <a href="http://ibm-watson-data-lab.github.io/team"
-            target="_blank" class="type_link">
-            http://ibm-watson-data-lab.github.io/team</a>
-        </p>
-      </figure>
-
-      <!-- got culture totals -->
-      <figure class="guide-example theme_light bg_light-tint">
-        <p class="type_copy type_mark">
-          Number of <i>Game of Thrones</i> characters in each culture</p>
-        <div class="gotculture"
-          data-vis="http://sss-got.mybluemix.net/search?q=*:*"
-          data-vis-type="bubble-chart"
-          data-vis-ondata="gotCultureOnData"
-          data-vis-onfail="onFail"></div>
-        <p class="type_copy">
-          <a href="http://sss-got-theme.mybluemix.net/"
-            target="_blank" class="type_link">
-            http://sss-got.mybluemix.net</a>
-        </p>
-      </figure>
-
-      <!-- got books -->
-      <figure class="guide-example theme_light bg_light-tint">
-        <p class="type_copy type_mark">
-          <i>Game of Thrones</i> characters gender by books</p>
-        <div class="gotgenderbybooks"
-          data-vis="http://sss-got.mybluemix.net/search?q=*:*&limit=200"
+        <p class="type_copy type_mark">Movie ratings count by year (between 2000 - 2010)</p>
+        <div
+          data-vis="/demo/data/ratings.json"
           data-vis-type="grouped-bar-chart"
-          data-vis-ondata="gotGenderByBooksOnData"
           data-vis-onfail="onFail"></div>
-        <p class="type_copy">
-          <a href="http://sss-got-theme.mybluemix.net/"
-            target="_blank" class="type_link">
-            http://sss-got.mybluemix.net</a>
-        </p>
+      </figure>
+
+      <!-- movie ratings by year (stacked) -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">Movie ratings count by year (between 2000 - 2010)</p>
+        <div id="stackedbarchart"></div>
+      </figure>
+
+      <!-- movie ratings by year (bubble) -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">Movie ratings by year (between 2000 - 2010)</p>
+        <div
+          data-vis="/demo/data/ratings.json"
+          data-vis-type="bubble-chart"
+          data-vis-ondata="bubbleDataCallback"
+          data-vis-onfail="onFail"></div>
+      </figure>
+
+      <!-- movie runtimes count (pie) -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">Movie runtime count</p>
+        <div id="piechart"></div>
+      </figure>
+
+      <!-- movie runtime summary (range) -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">Movie runtime summary</p>
+        <div
+            data-vis="data/runtimes.json"
+            data-vis-type="range-bar-chart"
+            data-vis-onfail="onFail"></div>
+      </figure>
+
+      <!-- misc data (bar) -->
+      <figure class="guide-example theme_light bg_light-tint">
+        <p class="type_copy type_mark">Bar chart using JSONArray data</p>
+        <div id="barchart"></div>
       </figure>
 
     </section>

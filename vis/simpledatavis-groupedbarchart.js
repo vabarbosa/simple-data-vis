@@ -45,7 +45,7 @@
 
           data.forEach(function (d) {
             var dd = d
-            d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d.value[entry], data: dd} })
+            d.groups = groupKeys.map(function (entry) { return { key: entry, value: +d.value[entry], data: dd } })
           })
         } else {
           data.forEach(function (d) {
@@ -58,7 +58,7 @@
 
           data.forEach(function (d) {
             var dd = d
-            d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d[entry], data: dd} })
+            d.groups = groupKeys.map(function (entry) { return { key: entry, value: +d[entry], data: dd } })
           })
         }
 
@@ -91,7 +91,7 @@
         data = series
 
         var color = d3.scale.category10()
-        var margin = {top: 20, right: 150, bottom: 120, left: 80}
+        var margin = { top: 20, right: 150, bottom: 120, left: 80 }
         var box = selection.node().getBoundingClientRect()
         var width = (box.width || 1024) - margin.left - margin.right
         var height = (box.height || 600) - margin.top - margin.bottom
@@ -114,7 +114,7 @@
         // setup series graph for each series
         var sGraph = svg.selectAll('g.series').data(data)
         sGraph.enter().append('g')
-            .attr('class', 'series')
+          .attr('class', 'series')
         sGraph.attr('transform', function (d, i) {
           return 'translate(' + margin.left + ',' + (margin.top + (height + margin.bottom) * i) + ')'
         })
@@ -151,11 +151,11 @@
             .attr('opacity', 1)
             .call(xAxis)
             .selectAll('text')
-              .attr('y', 7)
-              .attr('x', 7)
-              .attr('dy', '.35em')
-              .attr('transform', 'rotate(45)')
-              .style('text-anchor', 'start')
+            .attr('y', 7)
+            .attr('x', 7)
+            .attr('dy', '.35em')
+            .attr('transform', 'rotate(45)')
+            .style('text-anchor', 'start')
           xaxis.exit().remove()
 
           // setup the y axis
@@ -306,7 +306,7 @@
 
           data.forEach(function (d) {
             var dd = d
-            d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d.value[entry], data: dd} })
+            d.groups = groupKeys.map(function (entry) { return { key: entry, value: +d.value[entry], data: dd } })
           })
         } else {
           data.forEach(function (d) {
@@ -319,7 +319,7 @@
 
           data.forEach(function (d) {
             var dd = d
-            d.groups = groupKeys.map(function (entry) { return {key: entry, value: +d[entry], data: dd} })
+            d.groups = groupKeys.map(function (entry) { return { key: entry, value: +d[entry], data: dd } })
           })
         }
 
@@ -352,7 +352,7 @@
         data = series
 
         var color = d3.scaleOrdinal(d3.schemeCategory10)
-        var margin = {top: 20, right: 150, bottom: 120, left: 80}
+        var margin = { top: 20, right: 150, bottom: 120, left: 80 }
         var box = selection.node().getBoundingClientRect()
         var width = (box.width || 1024) - margin.left - margin.right
         var height = (box.height || 600) - margin.top - margin.bottom
@@ -360,10 +360,10 @@
         // setup the svg element
         var svg = selection.selectAll('svg').data([data])
         svg = svg.enter().append('svg')
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .style('font-family', 'HelvNeue,Helvetica,sans-serif')
-            .style('font-size', '0.8rem')
-            .style('font-weight', '300')
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
           .merge(svg)
         svg.attr('width', width + margin.left + margin.right)
           .attr('height', (height + margin.top + margin.bottom) * data.length)
@@ -373,7 +373,7 @@
         // setup series graph for each series
         var sGraph = svg.selectAll('g.series').data(data)
         sGraph = sGraph.enter().append('g')
-            .attr('class', 'series')
+          .attr('class', 'series')
           .merge(sGraph)
         sGraph.attr('transform', function (d, i) {
           return 'translate(' + margin.left + ',' + (margin.top + (height + margin.bottom) * i) + ')'
@@ -403,8 +403,8 @@
           // setup the x axis
           var xaxis = graph.selectAll('g.x').data([sData])
           xaxis = xaxis.enter().append('g')
-              .attr('class', 'x axis')
-              .style('font-size', '0.8rem')
+            .attr('class', 'x axis')
+            .style('font-size', '0.8rem')
             .merge(xaxis)
           var xaxistransition = typeof module === 'undefined' || !module.exports ? xaxis.transition() : xaxis
           xaxistransition
@@ -412,18 +412,18 @@
             .attr('opacity', 1)
             .call(xAxis)
             .selectAll('text')
-              .attr('y', 7)
-              .attr('x', 7)
-              .attr('dy', '.35em')
-              .attr('transform', 'rotate(45)')
-              .style('text-anchor', 'start')
+            .attr('y', 7)
+            .attr('x', 7)
+            .attr('dy', '.35em')
+            .attr('transform', 'rotate(45)')
+            .style('text-anchor', 'start')
           xaxis.exit().remove()
 
           // setup the y axis
           var yaxis = graph.selectAll('g.y').data([sData])
           yaxis = yaxis.enter().append('g')
-              .attr('class', 'y axis')
-              .style('font-size', '0.8rem')
+            .attr('class', 'y axis')
+            .style('font-size', '0.8rem')
             .merge(yaxis)
           var yaxistransition = typeof module === 'undefined' || !module.exports ? yaxis.transition() : yaxis
           yaxistransition
@@ -444,8 +444,8 @@
           var group = graph.selectAll('.group').data(sData)
           // add new groups
           group = group.enter().append('g')
-              .attr('class', 'group')
-              .attr('opacity', 0)
+            .attr('class', 'group')
+            .attr('opacity', 0)
             .merge(group)
           // update groups
           var grouptransition = typeof module === 'undefined' || !module.exports ? group.transition() : group
@@ -460,7 +460,7 @@
           var bars = group.selectAll('rect.bar').data(function (d) { return d.groups })
           // add new bars
           bars = bars.enter().append('rect')
-              .attr('opacity', 0)
+            .attr('opacity', 0)
             .merge(bars)
           // update bars
           var barstransition = typeof module === 'undefined' || !module.exports ? bars.transition() : bars
@@ -502,7 +502,7 @@
 
         // add new keys
         legendkey = legendkey.enter().append('rect')
-            .attr('class', 'legend')
+          .attr('class', 'legend')
           .merge(legendkey)
 
         // update keys
@@ -523,7 +523,7 @@
 
         // add new labels
         legendlabel = legendlabel.enter().append('text')
-            .attr('class', 'legend')
+          .attr('class', 'legend')
           .merge(legendlabel)
 
         // update labels

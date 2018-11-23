@@ -48,7 +48,7 @@
         // sort by the date
         data.sort(function (a, b) { return a.date > b.date })
 
-        var margin = {top: 20, right: 150, bottom: 30, left: 75}
+        var margin = { top: 20, right: 150, bottom: 30, left: 75 }
         var box = selection.node().getBoundingClientRect()
         // var box = d3.select(this).node().getBoundingClientRect()
         var width = Math.max(800, (box.width || 1024)) - margin.left - margin.right
@@ -141,7 +141,7 @@
                   .attr('r', 10)
                   .attr('opacity', 0.75)
                 SimpleDataVis.tooltip.mouseover(d, i, options,
-                    (timeformat(new Date(d.date)) + ', ' + d.key + ', ' + d.value))
+                  (timeformat(new Date(d.date)) + ', ' + d.key + ', ' + d.value))
               })
               .on('mousemove', SimpleDataVis.tooltip.mousemove)
               .on('mouseout', function (d, i) {
@@ -181,11 +181,11 @@
           // add new lines
           evtpath.enter()
             .append('path')
-              .attr('class', function (d) {
-                return 'line key-' + d.key.replace(/\s+/g, '')
-              })
-              .style('fill', 'none')
-              .style('stroke', function (d) { return color(d.key) })
+            .attr('class', function (d) {
+              return 'line key-' + d.key.replace(/\s+/g, '')
+            })
+            .style('fill', 'none')
+            .style('stroke', function (d) { return color(d.key) })
 
           // update lines
           var evtpathtransition = typeof module === 'undefined' || !module.exports ? evtpath.transition() : evtpath
@@ -287,7 +287,7 @@
         // sort by the date
         data.sort(function (a, b) { return a.date > b.date })
 
-        var margin = {top: 20, right: 150, bottom: 30, left: 75}
+        var margin = { top: 20, right: 150, bottom: 30, left: 75 }
         var box = selection.node().getBoundingClientRect()
         var width = Math.max(800, (box.width || 1024)) - margin.left - margin.right
         var height = 500 - margin.top - margin.bottom
@@ -316,25 +316,25 @@
         var svg = selection.selectAll('svg').data([data])
         svg = svg.enter().append('svg')
           .merge(svg)
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .style('color', '#264a60')
-            .style('fill', '#264a60')
-            .style('font-family', 'HelvNeue,Helvetica,sans-serif')
-            .style('font-size', '0.8rem')
-            .style('font-weight', '300')
+          .attr('width', width + margin.left + margin.right)
+          .attr('height', height + margin.top + margin.bottom)
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .style('color', '#264a60')
+          .style('fill', '#264a60')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
 
         var graph = svg.selectAll('g').data([data])
         graph = graph.enter().append('g')
           .merge(graph)
-            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+          .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
         // setup the x axis
         var xaxis = graph.selectAll('g.x').data([data])
         xaxis = xaxis.enter().append('g')
           .merge(xaxis)
-            .attr('class', 'x axis')
+          .attr('class', 'x axis')
         var xaxistransition = typeof module === 'undefined' || !module.exports ? xaxis.transition() : xaxis
         xaxistransition
           .attr('transform', 'translate(0,' + height + ')')
@@ -346,7 +346,7 @@
         var yaxis = graph.selectAll('g.y').data([data])
         yaxis = yaxis.enter().append('g')
           .merge(yaxis)
-            .attr('class', 'y axis')
+          .attr('class', 'y axis')
         var yaxistransition = typeof module === 'undefined' || !module.exports ? yaxis.transition() : yaxis
         yaxistransition
           .attr('opacity', 1)
@@ -382,7 +382,7 @@
                   .attr('r', 10)
                   .attr('opacity', 0.75)
                 SimpleDataVis.tooltip.mouseover(d, i, options,
-                    (timeformat(new Date(d.date)) + ', ' + d.key + ', ' + d.value))
+                  (timeformat(new Date(d.date)) + ', ' + d.key + ', ' + d.value))
               })
               .on('mousemove', SimpleDataVis.tooltip.mousemove)
               .on('mouseout', function (d, i) {
@@ -413,7 +413,7 @@
           var keynest = d3.nest().key(function (d) { return d.key }).entries(data)
           var evtgraph = graph.selectAll('g.event').data([keynest])
           evtgraph = evtgraph.enter().append('g')
-              .attr('class', 'event')
+            .attr('class', 'event')
             .merge(evtgraph)
           evtgraph.exit().remove()
 
@@ -422,13 +422,13 @@
 
           // add new lines
           evtpath = evtpath.enter()
-              .append('path')
+            .append('path')
             .merge(evtpath)
-              .attr('class', function (d) {
-                return 'line key-' + d.key.replace(/\s+/g, '')
-              })
-              .style('fill', 'none')
-              .style('stroke', function (d) { return color(d.key) })
+            .attr('class', function (d) {
+              return 'line key-' + d.key.replace(/\s+/g, '')
+            })
+            .style('fill', 'none')
+            .style('stroke', function (d) { return color(d.key) })
 
           // update lines
           var evtpathtransition = typeof module === 'undefined' || !module.exports ? evtpath.transition() : evtpath
@@ -445,12 +445,12 @@
         // add new keys
         legendkey = legendkey.enter().append('rect')
           .merge(legendkey)
-            .attr('class', 'legend')
-            // .attr('opacity', 0)
-            .attr('x', width + margin.left + 25)
-            .attr('y', function (d, i) { return (i * 20 + margin.top) })
-            .attr('width', 18)
-            .attr('height', 18)
+          .attr('class', 'legend')
+          // .attr('opacity', 0)
+          .attr('x', width + margin.left + 25)
+          .attr('y', function (d, i) { return (i * 20 + margin.top) })
+          .attr('width', 18)
+          .attr('height', 18)
 
         // update keys
         var legendkeytransition = typeof module === 'undefined' || !module.exports ? legendkey.transition() : legendkey
@@ -468,10 +468,10 @@
         // add new labels
         legendlabel = legendlabel.enter().append('text')
           .merge(legendlabel)
-            .attr('class', 'legend')
-            .attr('x', width + margin.left + 45)
-            .attr('y', function (d, i) { return (i * 20 + 9 + margin.top) })
-            .attr('dy', '.35em')
+          .attr('class', 'legend')
+          .attr('x', width + margin.left + 45)
+          .attr('y', function (d, i) { return (i * 20 + 9 + margin.top) })
+          .attr('dy', '.35em')
 
         // update labels
         legendlabel

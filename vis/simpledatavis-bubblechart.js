@@ -61,7 +61,7 @@
           .style('font-size', '0.8rem')
           .style('font-weight', '300')
 
-        var nodes = bubble.nodes({children: data})
+        var nodes = bubble.nodes({ children: data })
           .filter(function (d) {
             return !d.children
           })
@@ -193,19 +193,19 @@
         // setup the svg element
         var svg = selection.selectAll('svg').data([data])
         svg = svg.enter().append('svg')
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .style('color', '#264a60')
-            .style('fill', '#264a60')
-            .style('font-family', 'HelvNeue,Helvetica,sans-serif')
-            .style('font-size', '0.8rem')
-            .style('font-weight', '300')
+          .attr('xmlns', 'http://www.w3.org/2000/svg')
+          .style('color', '#264a60')
+          .style('fill', '#264a60')
+          .style('font-family', 'HelvNeue,Helvetica,sans-serif')
+          .style('font-size', '0.8rem')
+          .style('font-weight', '300')
           .merge(svg)
-            .attr('width', width)
-            .attr('height', height)
+          .attr('width', width)
+          .attr('height', height)
 
-        var nodes = bubble(d3.hierarchy({children: data})
-            .sum(function (d) { return d.value })
-            .each(function (d) { d.key = d.data.key }))
+        var nodes = bubble(d3.hierarchy({ children: data })
+          .sum(function (d) { return d.value })
+          .each(function (d) { d.key = d.data.key }))
           .leaves()
 
         var node = svg.selectAll('.node').data(nodes, function (d) { return d.key })

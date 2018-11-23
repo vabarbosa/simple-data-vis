@@ -1,0 +1,7 @@
+[
+  { "key": "1 to 1.5 hours", "value": { "sum": 36320, "count": 430, "min": 66, "max":90 } },
+  { "key": "1.5 to 2 hours", "value": { "sum": 313920, "count": 2946, "min":91, "max": 120 } },
+  { "key": "2 to 2.5 hours", "value": { "sum": 259622, "count": 1964, "min": 121, "max": 150 } },
+  { "key": "2.5 to 3 hours", "value": { "sum": 77394, "count": 476, "min": 151, "max": 180 } },
+  { "key": "Over 3 hours", "value": { "sum": 34274, "count": 174, "min": 183, "max": 238 } }
+]

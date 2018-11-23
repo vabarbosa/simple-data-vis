@@ -1,3 +1,5 @@
+/* global btoa */
+
 /**
  * SimpleDataVis
  *
@@ -118,16 +120,25 @@
           callbacks.onStart(u)
         }
 
-        d3.json(u, function (error, json) {
-          if (error) {
-            console.error(error)
-            if (callbacks && typeof callbacks.onFail === 'function') {
-              callbacks.onFail(getErrorMsg(error))
+        var d3req = (d3.request || d3.xhr)(u)
+        var matches = url.match(/^https?:\/\/([^/]+):([^/]+)@/)
+        if (matches && matches.length > 2) {
+          d3req = d3req.header('Authorization', `Basic ${btoa(matches[1] + ':' + matches[2])}`)
+        }
+
+        d3req
+          .mimeType('application/json')
+          .response(function (xhr) { return JSON.parse(xhr.responseText) })
+          .get(function (error, json) {
+            if (error) {
+              console.error(error)
+              if (callbacks && typeof callbacks.onFail === 'function') {
+                callbacks.onFail(getErrorMsg(error))
+              }
+            } else if (callbacks && typeof callbacks.done === 'function') {
+              callbacks.done(json)
             }
-          } else if (callbacks && typeof callbacks.done === 'function') {
-            callbacks.done(json)
-          }
-        })
+          })
       } else {
         console.warn('SimpleDataVis - unexpected datasource provided:', datasource)
         // perhaps it will be provided/corrected from the on-data callback
@@ -518,7 +529,7 @@
           .attr('class', 'simpledatavis-tooltip')
       } else {
         tooltipselection = tooltipselection.enter().append('div')
-            .attr('class', 'simpledatavis-tooltip')
+          .attr('class', 'simpledatavis-tooltip')
           .merge(tooltipselection)
       }
 

@@ -137,7 +137,7 @@
               .attr('opacity', 0.5)
 
             SimpleDataVis.tooltip.mouseover(d, i, options,
-                      (d.value + ' points near [' + coordinate(d) + ']'))
+              (d.value + ' points near [' + coordinate(d) + ']'))
           })
           .on('mousemove', SimpleDataVis.tooltip.mousemove)
           .on('mouseout', function (d, i) {
@@ -235,8 +235,8 @@
         var svg = selection.selectAll('svg').data([data])
         svg = svg.enter().append('svg')
           .merge(svg)
-            .attr('width', width)
-            .attr('height', height)
+          .attr('width', width)
+          .attr('height', height)
 
         // setup the map projections
         var proj = geodata.projection
@@ -271,27 +271,27 @@
         // add new points
         points = points.enter()
           .append('circle', '.pin')
-            .attr('r', 0)
-            .attr('opacity', 0)
+          .attr('r', 0)
+          .attr('opacity', 0)
           .merge(points)
-            .style('fill', function (d, i) { return color(geoGroup ? d.geo.length : i) })
-            .on('mouseover', function (d, i) {
-              d3.select(this).transition()
-                .attr('r', function (d) {
-                  return explode(geoGroup ? d.geo.length : 1)
-                })
-                .attr('opacity', 0.5)
+          .style('fill', function (d, i) { return color(geoGroup ? d.geo.length : i) })
+          .on('mouseover', function (d, i) {
+            d3.select(this).transition()
+              .attr('r', function (d) {
+                return explode(geoGroup ? d.geo.length : 1)
+              })
+              .attr('opacity', 0.5)
 
-              SimpleDataVis.tooltip.mouseover(d, i, options,
-                        (d.value + ' points near [' + coordinate(d) + ']'))
-            })
-            .on('mousemove', SimpleDataVis.tooltip.mousemove)
-            .on('mouseout', function (d, i) {
-              d3.select(this).transition()
-                .attr('r', function (d) { return radius(d.value) })
-                .attr('opacity', 0.75)
-              SimpleDataVis.tooltip.mouseout(d, i)
-            })
+            SimpleDataVis.tooltip.mouseover(d, i, options,
+              (d.value + ' points near [' + coordinate(d) + ']'))
+          })
+          .on('mousemove', SimpleDataVis.tooltip.mousemove)
+          .on('mouseout', function (d, i) {
+            d3.select(this).transition()
+              .attr('r', function (d) { return radius(d.value) })
+              .attr('opacity', 0.75)
+            SimpleDataVis.tooltip.mouseout(d, i)
+          })
 
         // update points
         points.transition()
