@@ -1,10 +1,10 @@
-# Simple Data Vis
+# simple-data-vis
 
-Simple Data Vis is a JavaScript module initially developed to visualize data gathered by the [Simple Logging Service](https://developer.ibm.com/clouddataservices/2016/03/03/simple-metrics-collector-microservices-edition/) for its [visualization page](http://simple-logging-service-vis.mybluemix.net/).
+simple-data-vis is a JavaScript module initially developed to visualize data gathered by the [Simple Logging Service](https://developer.ibm.com/clouddataservices/2016/03/03/simple-metrics-collector-microservices-edition/) for its [visualization page](http://simple-logging-service-vis.mybluemix.net/).
 
-<img src="https://advocated-vis.mybluemix.net/chart/allActivities" />
+<!-- <img src="https://advocated-vis.mybluemix.net/chart/allActivities" /> -->
 
-It is however generic enough that can be used to visual various types of data including [cloudant.com views](https://medium.com/ibm-watson-data-lab/eye-candy-for-cloudant-201a195ed6c).
+It is however generic enough that can be used to visual various types of data including [CouchDB and Cloudant views](https://medium.com/ibm-watson-data-lab/eye-candy-for-cloudant-201a195ed6c).
 
 Once installed the module can be used to render JSON Array data visually onto a web page (with D3). The data can be provided directly or via a REST endpoint.
 
@@ -32,9 +32,12 @@ Once installed the module can be used to render JSON Array data visually onto a 
 	Also include the desired [visualizations](https://github.com/ibm-watson-data-lab/simple-data-vis/wiki/Visualizations):
 	
 	```html
-	<script type="text/javascript" src="vis/simpledatavis-barchart.js"></script>
-	<script type="text/javascript" src="vis/simpledatavis-bubblechart.js"></script>
-	<script type="text/javascript" src="vis/simpledatavis-piechart.js"></script>
+  <script type="text/javascript" src="vis/simpledatavis-barchart.js"></script>
+  <script type="text/javascript" src="vis/simpledatavis-bubblechart.js"></script>
+  <script type="text/javascript" src="vis/simpledatavis-piechart.js"></script>
+  <script type="text/javascript" src="vis/simpledatavis-groupedbarchart.js"></script>
+  <script type="text/javascript" src="vis/simpledatavis-stackedbarchart.js"></script>
+  <script type="text/javascript" src="vis/simpledatavis-rangebarchart.js"></script>
 	```  
 
 
@@ -90,4 +93,4 @@ The module can be initialized via [JavaScript](https://github.com/ibm-watson-dat
 
 # Demo  
 
-The [`/demo`](https://github.com/ibm-watson-data-lab/simple-data-vis/tree/master/demo) folder of the repository contains the source for this [page](https://ibm-watson-data-lab.github.io/simple-data-vis/demo/simpledatavis.html).  
+The [`/demo`](https://github.com/vabarbosa/simple-data-vis/tree/master/demo) folder of the repository contains the source for this [page](https://vabarbosa.github.io/simple-data-vis/demo/simpledatavis.html).  
