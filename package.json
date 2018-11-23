@@ -20,5 +20,12 @@
     "d3": "3.5.17",
     "jsdom": "^9.8.3",
     "xhr2": "*"
-  }
+  },
+  "keywords": [
+    "data visualization",
+    "Cloudant",
+    "CouchDB",
+    "charts",
+    "d3"
+  ]
 }
