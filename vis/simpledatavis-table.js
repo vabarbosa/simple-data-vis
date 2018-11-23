@@ -3,7 +3,7 @@
 /**
  *  - Table visualization for the SimpleDataVis JavaScript module
  */
-(function (datavis) {
+;(function (datavis) {
   datavis.register({
     type: 'table-vis',
 

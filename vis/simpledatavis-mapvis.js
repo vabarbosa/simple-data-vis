@@ -3,7 +3,7 @@
 /**
  *  - Map visualization for the SimpleDataVis JavaScript module
  */
-(function (datavis) {
+;(function (datavis) {
   var isArray = function (o) {
     return Object.prototype.toString.call(o) === '[object Array]'
   }

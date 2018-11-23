@@ -3,9 +3,9 @@
 /**
  *  - Stacked Bar Chart visualization for the SimpleDataVis JavaScript module
  */
-(function () {
+;(function (win) {
   var StackedBarChartVis = function (datavis) {
-    var d3 = typeof module !== 'undefined' && module.exports ? require('d3') : window.d3
+    var d3 = typeof module !== 'undefined' && module.exports ? require('d3') : win.d3
 
     datavis.register({
       type: 'stacked-bar-chart',
@@ -458,4 +458,4 @@
   } else {
     StackedBarChartVis(SimpleDataVis)
   }
-}())
+}(this))

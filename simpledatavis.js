@@ -6,7 +6,7 @@
  *  - JavaScript module for simple data visualizations
  *
  */
-(function () {
+;(function (win) {
   var d3
   var jsdom
 
@@ -15,7 +15,7 @@
     d3 = require('d3')
     jsdom = require('jsdom').jsdom
   } else {
-    d3 = window.d3
+    d3 = win.d3
   }
 
   function isArray (o) {
@@ -54,7 +54,7 @@
         var data = datasource()
         callbacks.done(data)
       } else if (typeof datasource === 'string') {
-        var url = datasource || window.location.origin
+        var url = datasource || win.location.origin
 
         if (url.lastIndexOf('/') !== url.length - 1 && url.indexOf('?') === -1) {
           url += '/'
@@ -280,8 +280,8 @@
           } else if (typeof visCallback.start === 'string') {
             if (visScope[visCallback.start]) {
               visScope[visCallback.start].apply(selection, arguments)
-            } else if (window[visCallback.start]) {
-              window[visCallback.start].apply(selection, arguments)
+            } else if (win[visCallback.start]) {
+              win[visCallback.start].apply(selection, arguments)
             }
           }
         }
@@ -292,8 +292,8 @@
           } else if (typeof visCallback.fail === 'string') {
             if (visScope[visCallback.fail]) {
               visScope[visCallback.fail].apply(selection, arguments)
-            } else if (window[visCallback.fail]) {
-              window[visCallback.fail].apply(selection, arguments)
+            } else if (win[visCallback.fail]) {
+              win[visCallback.fail].apply(selection, arguments)
             }
           }
         }
@@ -305,8 +305,8 @@
           } else if (typeof visCallback.data === 'string') {
             if (visScope[visCallback.data]) {
               updated = visScope[visCallback.data].apply(selection, arguments)
-            } else if (window[visCallback.data]) {
-              updated = window[visCallback.data].apply(selection, arguments)
+            } else if (win[visCallback.data]) {
+              updated = win[visCallback.data].apply(selection, arguments)
             }
           }
           updated = (typeof updated === 'undefined') ? data : updated
@@ -319,8 +319,8 @@
           } else if (typeof visCallback.end === 'string') {
             if (visScope[visCallback.end]) {
               visScope[visCallback.end].apply(selection, arguments)
-            } else if (window[visCallback.end]) {
-              window[visCallback.end].apply(selection, arguments)
+            } else if (win[visCallback.end]) {
+              win[visCallback.end].apply(selection, arguments)
             }
           }
         }
@@ -331,8 +331,8 @@
           } else if (typeof visCallback.click === 'string') {
             if (visScope[visCallback.click]) {
               visScope[visCallback.click].apply(selection, arguments)
-            } else if (window[visCallback.click]) {
-              window[visCallback.click].apply(selection, arguments)
+            } else if (win[visCallback.click]) {
+              win[visCallback.click].apply(selection, arguments)
             }
           }
         }
@@ -348,8 +348,8 @@
             if (typeof visOpts.tooltip === 'string') {
               if (visScope[visOpts.tooltip]) {
                 visOpts.tooltip = visScope[visOpts.tooltip]
-              } else if (window[visOpts.tooltip]) {
-                visOpts.tooltip = window[visOpts.tooltip]
+              } else if (win[visOpts.tooltip]) {
+                visOpts.tooltip = win[visOpts.tooltip]
               }
             }
 
@@ -430,7 +430,7 @@
         if (context === null) {
           scope = {}
         } else if (typeof context === 'string') {
-          scope = window[context]
+          scope = win[context]
         } else if (typeof context !== 'undefined') {
           scope = context
         }
@@ -449,8 +449,8 @@
           } else if (typeof callbacks.fail === 'string') {
             if (scope[callbacks.fail]) {
               scope[callbacks.fail](msg)
-            } else if (window[callbacks.fail]) {
-              window[callbacks.fail](msg)
+            } else if (win[callbacks.fail]) {
+              win[callbacks.fail](msg)
             }
           }
         }
@@ -596,11 +596,11 @@
     require('./vis/simpledatavis-stackedbarchart')(SimpleDataVis)
     require('./vis/simpledatavis-timeline')(SimpleDataVis)
   } else {
-    window.SimpleDataVis = SimpleDataVis
+    win.SimpleDataVis = SimpleDataVis
 
-    window.addEventListener('DOMContentLoaded', function () {
+    win.addEventListener('DOMContentLoaded', function () {
       // find elements with data-vis-view attribute and initiate them
-      window.SimpleDataVis.init()
+      win.SimpleDataVis.init()
     })
   }
-}())
+}(this))
