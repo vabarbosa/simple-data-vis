@@ -112,7 +112,7 @@
             u += (p + '=' + params[p] + '&')
           }
         }
-        if (u.lastIndexOf('?') === u.length - 1 || u.lastIndexOf('&') === u.length - 1) {
+        while (u.lastIndexOf('?') === u.length - 1 || u.lastIndexOf('&') === u.length - 1 || u.lastIndexOf('/') === u.length - 1) {
           u = u.substring(0, u.length - 1)
         }
 

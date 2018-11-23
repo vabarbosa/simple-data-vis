@@ -56,7 +56,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', function () {
-      SimpleDataVis('/demo/data/ratings.json')
+      SimpleDataVis('data/ratings.json')
         .attr('type', 'stacked-bar-chart')
         .on('fail', onFail)
         .render('#stackedbarchart')
@@ -92,7 +92,7 @@
       <figure class="guide-example theme_light bg_light-tint">
         <p class="type_copy type_mark">Movie ratings count by year (between 2000 - 2010)</p>
         <div
-          data-vis="/demo/data/ratings.json"
+          data-vis="data/ratings.json"
           data-vis-type="grouped-bar-chart"
           data-vis-onfail="onFail"></div>
       </figure>
@@ -107,7 +107,7 @@
       <figure class="guide-example theme_light bg_light-tint">
         <p class="type_copy type_mark">Movie ratings by year (between 2000 - 2010)</p>
         <div
-          data-vis="/demo/data/ratings.json"
+          data-vis="data/ratings.json"
           data-vis-type="bubble-chart"
           data-vis-ondata="bubbleDataCallback"
           data-vis-onfail="onFail"></div>
