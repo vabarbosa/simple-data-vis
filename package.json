@@ -1,17 +1,17 @@
 {
   "name": "simple-data-vis",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "simple data visualizations using d3",
   "main": "simpledatavis.js",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ibm-watson-data-lab/simple-data-vis/issues"
+    "url": "https://github.com/vabarbosa/simple-data-vis/issues"
   },
-  "homepage": "https://github.com/ibm-watson-data-lab/simple-data-vis#readme",
+  "homepage": "https://github.com/vabarbosa/simple-data-vis#readme",
   "author": "va@us.ibm.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ibm-watson-data-lab/simple-data-vis.git"
+    "url": "https://github.com/vabarbosa/simple-data-vis.git"
   },
   "devDependencies": {
     "standard": "^8.1.0"
