@@ -1,6 +1,6 @@
 # simple-data-vis
 
-simple-data-vis is a JavaScript module initially developed to visualize data gathered by the [Simple Logging Service](https://developer.ibm.com/clouddataservices/2016/03/03/simple-metrics-collector-microservices-edition/) for its [visualization page](http://simple-logging-service-vis.mybluemix.net/).
+simple-data-vis is a JavaScript module initially developed to visualize data gathered by the [Simple Logging Service](https://developer.ibm.com/clouddataservices/2016/03/03/simple-metrics-collector-microservices-edition/) for its visualization page.
 
 <!-- <img src="https://advocated-vis.mybluemix.net/chart/allActivities" /> -->
 
@@ -48,7 +48,7 @@ The module can be initialized via [JavaScript](https://github.com/ibm-watson-dat
 * __HTML data attributes__
 
 	```html
-	<div type="text" data-vis="http://some-data-url"
+	<div type="text" data-vis="https://some-data-url"
 	        data-vis-type="bar-chart"></div>
 	```
 
